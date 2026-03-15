@@ -17,20 +17,20 @@ export default function Overview() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {features.map((f) => (
-            <div key={f.title} className="p-5 bg-[#111827] border border-[#1f2d45] rounded-xl card-hover">
+            <div key={f.title} className="p-5 bg-[#1e293b] border border-[#334155] rounded-xl card-hover">
               <div className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-4">
                 <f.icon className="w-4 h-4 text-blue-400" />
               </div>
               <h3 className="text-sm font-semibold text-slate-200 mb-2">{f.title}</h3>
-              <p className="text-xs text-slate-500 leading-relaxed">{f.desc}</p>
+              <p className="text-xs text-slate-400 leading-relaxed">{f.desc}</p>
             </div>
           ))}
         </div>
-        <div className="mt-10 p-6 bg-[#111827] border border-[#1f2d45] rounded-xl">
-          <p className="text-xs text-slate-500 mb-4 text-center">工作原理</p>
+        <div className="mt-10 p-6 bg-[#1e293b] border border-[#334155] rounded-xl">
+          <p className="text-xs text-slate-400 mb-4 text-center">工作原理</p>
           <div className="flex items-center justify-center gap-3 flex-wrap text-xs">
             {["你的消息", "→", "Claude 理解", "→", "调用技能/工具", "→", "执行任务", "→", "返回结果"].map((item, i) => (
-              <span key={i} className={item === "→" ? "text-slate-600" : "px-3 py-1.5 bg-[#1a2236] border border-[#1f2d45] rounded-md text-slate-400"}>{item}</span>
+              <span key={i} className={item === "→" ? "text-slate-500" : "px-3 py-1.5 bg-[#263448] border border-[#334155] rounded-md text-slate-400"}>{item}</span>
             ))}
           </div>
         </div>

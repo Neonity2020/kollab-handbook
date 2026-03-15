@@ -1,27 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #0a0f1e;
-  --color-surface: #111827;
-  --color-surface2: #1a2236;
-  --color-border: #1f2d45;
+  --color-bg: #111827;
+  --color-surface: #1e293b;
+  --color-surface2: #263448;
+  --color-border: #334155;
   --color-accent: #3b82f6;
   --color-accent-light: #60a5fa;
-  --color-text: #f1f5f9;
-  --color-text-muted: #64748b;
-  --color-text-secondary: #94a3b8;
+  --color-text: #f8fafc;
+  --color-text-muted: #94a3b8;
+  --color-text-secondary: #cbd5e1;
 }
 
 :root {
-  --bg: #0a0f1e;
-  --surface: #111827;
-  --surface2: #1a2236;
-  --border: #1f2d45;
+  --bg: #111827;
+  --surface: #1e293b;
+  --surface2: #263448;
+  --border: #334155;
   --accent: #3b82f6;
   --accent-light: #60a5fa;
-  --text: #f1f5f9;
-  --text-muted: #64748b;
-  --text-secondary: #94a3b8;
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-secondary: #cbd5e1;
 }
 
 html { scroll-behavior: smooth; }
@@ -35,7 +35,7 @@ body {
 
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: #1f2d45; border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
 
 ::selection { background: rgba(59,130,246,0.3); }
@@ -88,7 +88,7 @@ body {
   margin-top: 2.5rem;
   margin-bottom: 0.75rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid #1f2d45;
+  border-bottom: 1px solid #334155;
 }
 .prose-blog h3 {
   font-size: 1.05rem;
@@ -116,8 +116,8 @@ body {
 .prose-blog li strong { color: #cbd5e1; }
 .prose-blog strong { color: #cbd5e1; }
 .prose-blog pre {
-  background: #0a1020;
-  border: 1px solid #1f2d45;
+  background: #1e293b;
+  border: 1px solid #334155;
   border-radius: 0.5rem;
   padding: 1rem 1.25rem;
   overflow-x: auto;
@@ -130,8 +130,8 @@ body {
   background: transparent;
 }
 .prose-blog p code, .prose-blog li code {
-  background: #0d1626;
-  border: 1px solid #1f2d45;
+  background: #263448;
+  border: 1px solid #334155;
   border-radius: 0.3rem;
   padding: 0.1rem 0.4rem;
   font-size: 0.8rem;
@@ -144,16 +144,16 @@ body {
   font-size: 0.875rem;
 }
 .prose-blog th {
-  background: #0d1626;
+  background: #263448;
   color: #cbd5e1;
   font-weight: 600;
   text-align: left;
   padding: 0.6rem 0.85rem;
-  border: 1px solid #1f2d45;
+  border: 1px solid #334155;
 }
 .prose-blog td {
   color: #94a3b8;
   padding: 0.55rem 0.85rem;
-  border: 1px solid #1a2740;
+  border: 1px solid #2d3f55;
 }
-.prose-blog tr:nth-child(even) td { background: #0a1120; }
+.prose-blog tr:nth-child(even) td { background: #1e293b; }

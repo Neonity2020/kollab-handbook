@@ -27,7 +27,7 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#0a0f1e]/95 backdrop-blur-md border-b border-[#1f2d45]"
+          ? "bg-[#1e293b]/95 backdrop-blur-md border-b border-[#334155]"
           : "bg-transparent"
       }`}
     >
@@ -66,12 +66,12 @@ export default function Navbar() {
         </div>
       </div>
       {open && (
-        <div className="md:hidden bg-[#111827] border-b border-[#1f2d45] px-4 pb-4">
+        <div className="md:hidden bg-[#1e293b] border-b border-[#334155] px-4 pb-4">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className={`block py-2.5 text-sm border-b border-[#1f2d45] last:border-0 ${
+              className={`block py-2.5 text-sm border-b border-[#334155] last:border-0 ${
                 link.highlight ? "text-blue-400" : "text-slate-400 hover:text-slate-200"
               }`}
               onClick={() => setOpen(false)}
