@@ -9,12 +9,13 @@ export async function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
 }
 
-export default function BlogPostPage({
+export default async function BlogPostPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const post = getBlogPost(params.slug);
+  const { slug } = await params;
+  const post = getBlogPost(slug);
   if (!post) notFound();
 
   return (
@@ -37,7 +38,7 @@ export default function BlogPostPage({
           {/* Header */}
           <header className="mb-10">
             <div className="flex flex-wrap gap-2 mb-4">
-              {post.tags.map((tag) => (
+              {post!.tags.map((tag) => (
                 <span
                   key={tag}
                   className="px-2 py-0.5 text-xs rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20"
@@ -47,26 +48,26 @@ export default function BlogPostPage({
               ))}
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-4">
-              {post.title}
+              {post!.title}
             </h1>
             <div className="flex items-center gap-3 text-xs text-slate-500">
-              <time>{post.date}</time>
+              <time>{post!.date}</time>
               <span>·</span>
-              <span>约 {post.readTime} 分钟阅读</span>
+              <span>约 {post!.readTime} 分钟阅读</span>
               <span>·</span>
-              <span>{post.author}</span>
+              <span>{post!.author}</span>
             </div>
           </header>
 
           {/* Summary */}
           <div className="bg-blue-500/5 border border-blue-500/20 rounded-xl p-5 mb-10">
-            <p className="text-sm text-slate-300 leading-relaxed">{post.summary}</p>
+            <p className="text-sm text-slate-300 leading-relaxed">{post!.summary}</p>
           </div>
 
           {/* Content — uses .prose-blog defined in globals.css */}
           <article
             className="prose-blog"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            dangerouslySetInnerHTML={{ __html: post!.content }}
           />
 
           {/* Footer nav */}
