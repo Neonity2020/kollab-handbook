@@ -63,23 +63,9 @@ export default function BlogPostPage({
             <p className="text-sm text-slate-300 leading-relaxed">{post.summary}</p>
           </div>
 
-          {/* Content */}
+          {/* Content — uses .prose-blog defined in globals.css */}
           <article
-            className="prose prose-invert prose-sm max-w-none
-              prose-headings:text-slate-100
-              prose-h2:text-xl prose-h2:font-bold prose-h2:mt-10 prose-h2:mb-4
-              prose-h3:text-base prose-h3:font-semibold prose-h3:mt-6 prose-h3:mb-3 prose-h3:text-blue-300
-              prose-p:text-slate-400 prose-p:leading-relaxed
-              prose-strong:text-slate-200
-              prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-300
-              prose-code:text-blue-300 prose-code:bg-[#0d1626] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs
-              prose-pre:bg-[#0d1626] prose-pre:border prose-pre:border-[#1f2d45] prose-pre:rounded-xl
-              prose-ul:text-slate-400 prose-li:my-1
-              prose-hr:border-[#1f2d45] prose-hr:my-8
-              prose-table:text-sm
-              prose-th:text-slate-300 prose-th:border prose-th:border-[#1f2d45] prose-th:px-3 prose-th:py-2
-              prose-td:text-slate-400 prose-td:border prose-td:border-[#1f2d45] prose-td:px-3 prose-td:py-2
-            "
+            className="prose-blog"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
