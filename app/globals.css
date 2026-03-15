@@ -79,3 +79,81 @@ body {
   z-index: 9999;
   transition: width 0.1s linear;
 }
+
+/* Blog prose styles */
+.prose-blog h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #1f2d45;
+}
+.prose-blog h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+.prose-blog p {
+  font-size: 0.9375rem;
+  color: #94a3b8;
+  line-height: 1.85;
+  margin-bottom: 1rem;
+}
+.prose-blog ul, .prose-blog ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: #94a3b8;
+}
+.prose-blog li {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  margin-bottom: 0.35rem;
+}
+.prose-blog li strong { color: #cbd5e1; }
+.prose-blog strong { color: #cbd5e1; }
+.prose-blog pre {
+  background: #0a1020;
+  border: 1px solid #1f2d45;
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  margin: 1.25rem 0;
+}
+.prose-blog code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.82rem;
+  color: #93c5fd;
+  background: transparent;
+}
+.prose-blog p code, .prose-blog li code {
+  background: #0d1626;
+  border: 1px solid #1f2d45;
+  border-radius: 0.3rem;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.8rem;
+  color: #7dd3fc;
+}
+.prose-blog table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  font-size: 0.875rem;
+}
+.prose-blog th {
+  background: #0d1626;
+  color: #cbd5e1;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid #1f2d45;
+}
+.prose-blog td {
+  color: #94a3b8;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid #1a2740;
+}
+.prose-blog tr:nth-child(even) td { background: #0a1120; }
