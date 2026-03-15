@@ -38,7 +38,7 @@ export default function Hero() {
       <div className="relative text-center max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full text-xs text-blue-400 mb-8">
           <Zap className="w-3 h-3" />
-          <span>AI 魔法工具箱 · Powered by Claude Opus 4.5</span>
+          <span>AI 魔法工具筱 · Powered by Claude Opus 4.5</span>
         </div>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-slate-100 mb-4 leading-tight">
           Kollab 实用手册
@@ -60,7 +60,7 @@ export default function Hero() {
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="text-2xl font-bold text-blue-400">{stat.num}</div>
-              <div className="text-slate-500 text-xs">{stat.label}</div>
+              <div className="text-slate-400 text-xs">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -73,7 +73,7 @@ export default function Hero() {
           </a>
         </div>
       </div>
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 animate-bounce">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-500 animate-bounce">
         <ArrowDown className="w-4 h-4" />
       </div>
     </section>

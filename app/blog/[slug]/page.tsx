@@ -22,12 +22,11 @@ export default async function BlogPostPage({
     <>
       <ProgressBar />
       <Navbar />
-      <main className="min-h-screen bg-[#060d1a] pt-24 pb-20 px-4">
+      <main className="min-h-screen bg-[#111827] pt-24 pb-20 px-4">
         <div className="max-w-2xl mx-auto">
-          {/* Back */}
           <Link
             href="/blog/"
-            className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-blue-400 transition-colors mb-10"
+            className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-blue-400 transition-colors mb-10"
           >
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -35,7 +34,6 @@ export default async function BlogPostPage({
             返回博客列表
           </Link>
 
-          {/* Header */}
           <header className="mb-10">
             <div className="flex flex-wrap gap-2 mb-4">
               {post!.tags.map((tag) => (
@@ -50,7 +48,7 @@ export default async function BlogPostPage({
             <h1 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-4">
               {post!.title}
             </h1>
-            <div className="flex items-center gap-3 text-xs text-slate-500">
+            <div className="flex items-center gap-3 text-xs text-slate-400">
               <time>{post!.date}</time>
               <span>·</span>
               <span>约 {post!.readTime} 分钟阅读</span>
@@ -59,19 +57,16 @@ export default async function BlogPostPage({
             </div>
           </header>
 
-          {/* Summary */}
           <div className="bg-blue-500/5 border border-blue-500/20 rounded-xl p-5 mb-10">
             <p className="text-sm text-slate-300 leading-relaxed">{post!.summary}</p>
           </div>
 
-          {/* Content — uses .prose-blog defined in globals.css */}
           <article
             className="prose-blog"
             dangerouslySetInnerHTML={{ __html: post!.content }}
           />
 
-          {/* Footer nav */}
-          <div className="mt-16 pt-8 border-t border-[#1f2d45]">
+          <div className="mt-16 pt-8 border-t border-[#334155]">
             <Link
               href="/blog/"
               className="inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-blue-300 transition-colors"

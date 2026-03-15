@@ -9,7 +9,7 @@ export default function BlogIndex() {
     <>
       <ProgressBar />
       <Navbar />
-      <main className="min-h-screen bg-[#060d1a] pt-24 pb-16 px-4">
+      <main className="min-h-screen bg-[#111827] pt-24 pb-16 px-4">
         <div className="max-w-3xl mx-auto">
           <div className="mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs mb-4">
@@ -28,14 +28,14 @@ export default function BlogIndex() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}/`}
-                className="group block bg-[#0d1626] border border-[#1f2d45] rounded-xl p-6 hover:border-blue-500/40 hover:bg-[#111d30] transition-all duration-200"
+                className="group block bg-[#263448] border border-[#334155] rounded-xl p-6 hover:border-blue-500/40 hover:bg-[#1e293b] transition-all duration-200"
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <time className="text-xs text-slate-500">{post.date}</time>
-                  <span className="text-slate-600">·</span>
-                  <span className="text-xs text-slate-500">约 {post.readTime} 分钟阅读</span>
-                  <span className="text-slate-600">·</span>
-                  <span className="text-xs text-slate-500">{post.author}</span>
+                  <time className="text-xs text-slate-400">{post.date}</time>
+                  <span className="text-slate-500">·</span>
+                  <span className="text-xs text-slate-400">约 {post.readTime} 分钟阅读</span>
+                  <span className="text-slate-500">·</span>
+                  <span className="text-xs text-slate-400">{post.author}</span>
                 </div>
                 <h2 className="text-lg font-semibold text-slate-100 group-hover:text-blue-300 transition-colors mb-2 leading-snug">
                   {post.title}
@@ -57,8 +57,8 @@ export default function BlogIndex() {
             ))}
           </div>
 
-          <div className="mt-16 pt-8 border-t border-[#1f2d45] text-center">
-            <p className="text-xs text-slate-600">
+          <div className="mt-16 pt-8 border-t border-[#334155] text-center">
+            <p className="text-xs text-slate-500">
               文章每日更新 · 追踪 AI Agent 领域最新动态
             </p>
           </div>
