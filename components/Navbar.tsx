@@ -3,13 +3,14 @@ import { useState, useEffect } from "react";
 import { Menu, X, Zap } from "lucide-react";
 
 const navLinks = [
-  { href: "#overview", label: "平台概览" },
-  { href: "#use-cases", label: "核心用例" },
-  { href: "#skills", label: "技能生态" },
-  { href: "#quickstart", label: "快速入门" },
-  { href: "#tips", label: "高效技巧" },
-  { href: "#learning-path", label: "学习路径" },
-  { href: "#faq", label: "FAQ" },
+  { href: "#overview", label: "平台概览", highlight: false },
+  { href: "#use-cases", label: "核心用例", highlight: false },
+  { href: "#skills", label: "技能生态", highlight: false },
+  { href: "#quickstart", label: "快速入门", highlight: false },
+  { href: "#tips", label: "高效技巧", highlight: false },
+  { href: "#learning-path", label: "学习路径", highlight: false },
+  { href: "#faq", label: "FAQ", highlight: false },
+  { href: "/blog/", label: "技术博客", highlight: true },
 ];
 
 export default function Navbar() {
@@ -32,7 +33,7 @@ export default function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-14">
-          <a href="#" className="flex items-center gap-2">
+          <a href="/" className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-blue-500/20 border border-blue-500/40 flex items-center justify-center">
               <Zap className="w-4 h-4 text-blue-400" />
             </div>
@@ -43,8 +44,15 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="px-3 py-1.5 text-xs text-slate-400 hover:text-slate-200 hover:bg-white/5 rounded-md transition-all"
+                className={`px-3 py-1.5 text-xs rounded-md transition-all ${
+                  link.highlight
+                    ? "text-blue-400 bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 flex items-center gap-1.5"
+                    : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
+                }`}
               >
+                {link.highlight && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse flex-shrink-0" />
+                )}
                 {link.label}
               </a>
             ))}
@@ -63,7 +71,9 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="block py-2.5 text-sm text-slate-400 hover:text-slate-200 border-b border-[#1f2d45] last:border-0"
+              className={`block py-2.5 text-sm border-b border-[#1f2d45] last:border-0 ${
+                link.highlight ? "text-blue-400" : "text-slate-400 hover:text-slate-200"
+              }`}
               onClick={() => setOpen(false)}
             >
               {link.label}
