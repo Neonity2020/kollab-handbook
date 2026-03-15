@@ -9,6 +9,7 @@ import LearningPath from "@/components/LearningPath";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import ProgressBar from "@/components/ProgressBar";
+import BlogSection from "@/components/BlogSection";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
         <QuickStart />
         <Tips />
         <LearningPath />
+        <BlogSection />
         <FAQ />
       </main>
       <Footer />
