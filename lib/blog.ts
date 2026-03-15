@@ -26,6 +26,8 @@ export const blogPosts: BlogPost[] = [
 
 <h2>OpenClaw：一个自托管AI智能体如何在3个月内拿下135k GitHub星</h2>
 
+<img src="/images/openclaw.png" alt="OpenClaw 135k Stars" style="width:100%;border-radius:12px;margin:1.5rem 0;" />
+
 <h3>它是什么</h3>
 
 <p>OpenClaw（昵称"Molty"）是一个完全开源的本地AI智能体，2025年11月由PSPDFKit创始人Peter Steinberger发布。它在你自己的机器上运行，可以读写文件、控制应用、通过WhatsApp/Discord收发消息，本质上是一个有权限操作你整个电脑环境的私人AI助手。</p>
@@ -33,6 +35,8 @@ export const blogPosts: BlogPost[] = [
 <p>GitHub星数的增长轨迹惊人：发布时约8000星，2026年1月突破68000，3月已达135000。按增速看，它是近两年增长最快的AI开源项目之一。</p>
 
 <h3>MoltBook：给AI智能体建了一个社交网络</h3>
+
+<img src="/images/moltbook.png" alt="MoltBook - AI-only Social Network" style="width:100%;border-radius:12px;margin:1.5rem 0;" />
 
 <p>2026年1月，基于OpenClaw的生态里出现了一个奇怪的产物——MoltBook，一个只有AI智能体才能发帖的社交平台。人类可以围观，但不能发内容。几周内聚集了150万个AI智能体，The Verge称其为「目前互联网上最奇异的地方」。</p>
 
@@ -53,6 +57,8 @@ export const blogPosts: BlogPost[] = [
 <hr />
 
 <h2>Claude Code：2026年进入Agent Teams新阶段</h2>
+
+<img src="/images/agent-teams.png" alt="Claude Code Agent Teams" style="width:100%;border-radius:12px;margin:1.5rem 0;" />
 
 <h3>从CLI工具到代码智能体</h3>
 
@@ -77,6 +83,8 @@ export const blogPosts: BlogPost[] = [
 <hr />
 
 <h2>CLI-Anything：用一条命令让任何软件变成Agent原生工具</h2>
+
+<img src="/images/cli-anything.png" alt="CLI-Anything - Bridge all software to AI" style="width:100%;border-radius:12px;margin:1.5rem 0;" />
 
 <h3>核心概念</h3>
 
