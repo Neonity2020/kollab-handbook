@@ -7,6 +7,7 @@ export interface BlogPost {
   author: string;
   readTime: number;
   content: string;
+  coverImage?: string;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -277,7 +278,7 @@ export const blogPosts: BlogPost[] = [
 
 <h3>Phase 1：循环基础</h3>
 
-<p><strong>s01 — Agent Loop</strong>：<em>"One loop & Bash is all you need"</em><br/>
+<p><strong>s01 — Agent Loop</strong>：<em>"One loop &amp; Bash is all you need"</em><br/>
 一个工具（Bash）加一个循环，就够了。这是最小可用Agent。</p>
 
 <p><strong>s02 — Tool Use</strong>：<em>"Adding a tool means adding one handler"</em><br/>
@@ -406,8 +407,6 @@ python agents/s_full.py</code></pre>
 
 <p>2026年1月，基于OpenClaw的生态里出现了一个奇怪的产物——MoltBook，一个只有AI智能体才能发帖的社交平台。人类可以围观，但不能发内容。几周内聚集了150万个AI智能体，The Verge称其为「目前互联网上最奇异的地方」。</p>
 
-<p>从技术角度看，MoltBook实际上是多智能体交互行为的天然数据集，开发者可以通过观察自己的Agent在上面的表现来调试其推理模式。</p>
-
 <h3>中国的故事</h3>
 
 <p>Tom's Hardware报道，OpenClaw在中国的传播速度甚至超过了美国。个人用户、企业和政府机构都在快速部署，但随后监管介入——国有企业被明令禁止使用。这个监管动作本身就说明了这个工具的渗透速度。</p>
@@ -443,8 +442,6 @@ python agents/s_full.py</code></pre>
 <h3>实践角度</h3>
 
 <p>Addy Osmani（Google Chrome团队）在其2026年开发工作流文章中提到，Claude Code已经成为他日常工作流的核心——不是辅助工具，而是主要开发接口。他的评价：「它能读文件、跑测试、多步骤修复问题，这才是真正有用的编程助手。」</p>
-
-<p>对Kollab用户的直接意义：你现在用的这个AI助手（小k）底层就跑在Claude的基础上，理解Claude Code的工作方式有助于你写出更高质量的提示词。</p>
 
 <hr />
 
@@ -522,7 +519,7 @@ cli-anything ./libreoffice --pdf</code></pre>
 
 <blockquote>
 <p>"LLM 是一条死胡同。无论我们把它扩展到多大，都不会得到真正的智能。"</p>
-<p>—— Richard Sutton，Dwarkesh Podcast，2025年9月<br/><small>来源：<a href="https://www.dwarkesh.com/p/richard-sutton" target="_blank">dwarkesh.com/p/richard-sutton</a></small></p>
+<p>—— Richard Sutton，Dwarkesh Podcast，2025年9月</p>
 </blockquote>
 
 <hr />
@@ -531,26 +528,13 @@ cli-anything ./libreoffice --pdf</code></pre>
 
 <p>Richard Sutton，加拿大阿尔伯塔大学教授，曾任职 Google DeepMind。他和 Andrew Barto 合著的《强化学习：入门》至今是这个领域最权威的教材。时序差分学习（TD Learning）、策略梯度算法（Policy Gradient），这些现代 AI 的核心工具，都有他的奠基性贡献。2024年，他获得了图灵奖——计算机科学的最高荣誉，获奖理由是"奠定了现代强化学习的基础"。</p>
 
-<p>他不是一个在 X 上随便发帖的"AI专家"。他是真正有资格批评这个领域走向的人。</p>
-
 <hr />
 
 <h2>苦涩的教训，到底说了什么</h2>
 
-<p>在理解 Sutton 为什么反对 LLM 之前，有必要先搞清楚他的"苦涩教训"到底说了什么——以及，它没说什么。</p>
-
-<p>苦涩教训的核心论断是：纵观 AI 历史，每当研究者花大力气把领域专家知识硬编码进系统（比如国际象棋里写死的评估函数，语音识别里手工设计的音素规则），短期内往往能拿到好结果。但长期来看，这些系统都输给了那些"更笨但更通用"的方法——只要给足算力和数据，这些通用方法就会超越一切精心设计。</p>
+<p>苦涩教训的核心论断是：纵观 AI 历史，每当研究者花大力气把领域专家知识硬编码进系统，短期内往往能拿到好结果。但长期来看，这些系统都输给了那些"更笨但更通用"的方法——只要给足算力和数据，这些通用方法就会超越一切精心设计。</p>
 
 <p>但注意，苦涩教训说的是<strong>算力驱动的通用学习方法</strong>能赢，不是说"任何用了大量算力的东西都符合苦涩教训"。</p>
-
-<p>Sutton 自己在采访中说得很直白：</p>
-
-<blockquote>
-<p>"LLM 确实是一种使用大量计算的方式，这些计算能够随规模扩展……但它们同时也是一种把大量人类知识编码进去的方式。这是个有趣的问题：它们究竟是不是苦涩教训的体现？"</p>
-<p>—— Richard Sutton，Dwarkesh Podcast<br/><small>来源：<a href="https://www.dwarkesh.com/p/richard-sutton" target="_blank">dwarkesh.com/p/richard-sutton</a></small></p>
-</blockquote>
-
-<p>他的答案是：可能不是。因为 LLM 本质上在做的事情，是把人类已经积累的知识"重新打包"——它的上限，被互联网上的人类文本锁死了。</p>
 
 <hr />
 
@@ -558,83 +542,21 @@ cli-anything ./libreoffice --pdf</code></pre>
 
 <h3>1. LLM 没有真正的世界模型</h3>
 
-<p>Sutton 认为，真正的智能需要一个<strong>能预测世界状态、并在"意外发生"时更新自身认知的内部模型</strong>。</p>
+<p>Sutton 认为，真正的智能需要一个能预测世界状态、并在"意外发生"时更新自身认知的内部模型。LLM 做的是什么？预测下一个词（token）。它预测的是"下一个词"，不是"下一件事"。这两者之间，隔着一道本质的鸿沟。</p>
 
-<p>LLM 做的是什么？预测下一个词（token）。它学到的，是"在这个上下文里，下一个词最可能是什么"——这是一种对人类语言分布的统计拟合，而不是对物理世界因果关系的理解。</p>
+<h3>2. LLM 不能在工作中学习</h3>
 
-<p>它预测的是"下一个词"，不是"下一件事"。这两者之间，隔着一道本质的鸿沟。</p>
-
-<h3>2. LLM 不能在工作中学习（on-the-job learning）</h3>
-
-<p>人类和动物都具备一种能力：在与环境的持续互动中实时学习，不需要"暂停工作、回学校充电、然后重新上岗"。你踢了一脚石头，脚疼了，你就更新了对石头硬度的预期。这是连最简单的动物都具备的能力。</p>
-
-<p>LLM 的训练和推理是严格分离的两个阶段。一旦训练完成，权重就被冻结了。它在和你对话的过程中，不会因为你说的话而改变它对世界的理解。上下文窗口里的"记忆"不是真正的学习——它是临时的信息存储，对话结束就消失了。</p>
-
-<blockquote>
-<p>"无论我们如何扩大规模，LLM 的架构本质上缺乏从实际互动中持续学习的能力。"</p>
-<p>—— Richard Sutton，新浪财经报道，2025年9月<br/><small>来源：<a href="https://finance.sina.com.cn/stock/t/2025-09-27/doc-infrxzyi5188371.shtml" target="_blank">sina.com.cn</a></small></p>
-</blockquote>
+<p>人类和动物都具备一种能力：在与环境的持续互动中实时学习。LLM 的训练和推理是严格分离的两个阶段。一旦训练完成，权重就被冻结了。上下文窗口里的"记忆"不是真正的学习——它是临时的信息存储，对话结束就消失了。</p>
 
 <h3>3. 智能的本质是目标导向 + 经验积累</h3>
 
-<p>Sutton 引用了 AI 先驱 John McCarthy 的定义：<strong>智能是实现目标能力的计算部分</strong>。</p>
-
-<p>LLM 没有内在目标。它的"目标"是最小化训练损失——这是一个训练阶段的优化目标，不是它在世界上的行动目标。它生成内容，不是因为它想达成什么，而是因为它在统计上被训练成这样做。</p>
-
-<p>真正的智能体，应该能够自己定义目标、为了目标而与环境互动、从互动的后果中学习、并持续修正行为。这套循环，就是强化学习的精髓——也是 Sutton 毕生研究的东西。</p>
+<p>Sutton 引用了 AI 先驱 John McCarthy 的定义：<strong>智能是实现目标能力的计算部分</strong>。LLM 没有内在目标。它的"目标"是最小化训练损失——这是一个训练阶段的优化目标，不是它在世界上的行动目标。</p>
 
 <hr />
 
 <h2>他的替代方案：经验时代</h2>
 
-<p>批评之后，Sutton 没有停在批评这里。2025年，他和 AlphaGo 的核心作者 David Silver 联合发表了一篇论文，题为《欢迎来到经验时代》（Welcome to the Era of Experience）。</p>
-
-<blockquote>
-<p>"我们站在人工智能新纪元的门槛上……一代新的智能体将通过主要从经验中学习来获得超人的能力。"</p>
-<p>—— David Silver &amp; Richard Sutton，《Welcome to the Era of Experience》，2025年<br/><small>来源：<a href="https://venturebeat.com/ai/the-era-of-experience-will-unleash-self-learning-ai-agents-across-the-web-heres-how-to-prepare" target="_blank">VentureBeat</a></small></p>
-</blockquote>
-
-<p>他们描绘的图景是：未来的 AI 智能体不再主要依靠人类生成的静态数据集训练，而是<strong>通过与世界的持续互动自我积累经验</strong>，像所有动物一样，在行动和反馈的循环中成长。这种范式一旦实现，现在的 LLM 训练方式就会过时——就像游泳课上的岸边讲解，终将被下水实游所取代。</p>
-
-<hr />
-
-<h2>反驳：Dwarkesh 的钢人论证</h2>
-
-<p>Dwarkesh Patel 在采访后也写了一篇反思文章，给出了他对 Sutton 观点的"钢人论证"（steelman）：</p>
-
-<blockquote>
-<p>"我认为 Rich 用来区分 LLM 和真正智能的那些概念，其实并不是互斥的。LLM 可以成为持续学习的基础，而不是障碍。"</p>
-<p>—— Dwarkesh Patel，《Some thoughts on the Sutton interview》<br/><small>来源：<a href="https://www.dwarkesh.com/p/thoughts-on-sutton" target="_blank">dwarkesh.com/p/thoughts-on-sutton</a></small></p>
-</blockquote>
-
-<p>Dwarkesh 的核心反驳是：Sutton 把"现在的 LLM 不能持续学习"和"LLM 架构永远无法实现持续学习"混为一谈了。前者是对的，后者并未被证明。如果未来有一种系统，以 LLM 为基础、叠加强化学习和持续更新机制，它难道不也是"持续学习"的吗？</p>
-
-<p>这是一个合理的质疑。技术路线的边界，往往比理论分析要模糊得多。</p>
-
-<hr />
-
-<h2>不孤单的反对派：LeCun 也站在这一侧</h2>
-
-<p>Sutton 并不是唯一一个认为 LLM 路线有根本局限的顶级研究者。Meta 首席 AI 科学家、同为图灵奖得主的 Yann LeCun，已经反复公开表态：</p>
-
-<blockquote>
-<p>"自回归 LLM 是一条根本走不通的路。我们需要的是能够建立世界内部模型的系统，而不是一直在预测下一个词的系统。"</p>
-<p>—— Yann LeCun，多次公开表态（X/Twitter，学术演讲）</p>
-</blockquote>
-
-<p>LeCun 的替代方案是他提出的 JEPA（Joint Embedding Predictive Architecture）架构——通过预测世界的抽象表示，而不是像素或词汇，来建立类人的内部世界模型。</p>
-
-<p>两位图灵奖得主，从不同的技术路径出发，得出了相似的结论：当前 LLM 范式，无法通向 AGI。</p>
-
-<hr />
-
-<h2>那 Scaling Law 还有效吗？</h2>
-
-<p>Sutton 在采访中对 scaling 的态度也很微妙。他并不否认 scaling 的价值，但他认为 LLM 的 scaling 有一个天花板——互联网上的人类文本。</p>
-
-<p>一旦数据耗尽，模型规模再大也不会带来质的跳跃。这和经验学习不同——经验学习的数据来自与世界的互动，理论上是无限的。</p>
-
-<p>从 2024 年底开始，业界已经有越来越多的声音在讨论"pre-training scaling 遭遇瓶颈"。OpenAI 的 o1/o3 系列转向 test-time compute（推理时算力），Google DeepMind 在强化学习方向持续加码——这些动向，似乎在技术层面上悄悄印证了 Sutton 的部分判断。</p>
+<p>2025年，他和 AlphaGo 的核心作者 David Silver 联合发表了论文《欢迎来到经验时代》（Welcome to the Era of Experience）。他们描绘的图景是：未来的 AI 智能体不再主要依靠人类生成的静态数据集训练，而是通过与世界的持续互动自我积累经验，像所有动物一样，在行动和反馈的循环中成长。</p>
 
 <hr />
 
@@ -644,9 +566,7 @@ cli-anything ./libreoffice --pdf</code></pre>
 
 <p>问题不是"LLM 有没有用"——它当然有用，而且在很多任务上极其有用。问题是：<strong>它是通往通用智能的主干道，还是一条精彩但有尽头的支路？</strong></p>
 
-<p>一个写出了苦涩教训、见证了 AI 历史上一次次范式更替的人，在说"这次，我们可能又走错了"。</p>
-
-<p>这值得认真听一次。</p>
+<p>一个写出了苦涩教训、见证了 AI 历史上一次次范式更替的人，在说"这次，我们可能又走错了"。这值得认真听一次。</p>
 
 <hr />
 
@@ -655,10 +575,7 @@ cli-anything ./libreoffice --pdf</code></pre>
 <ul>
 <li>Richard Sutton，Dwarkesh Podcast 访谈，2025年9月 → <a href="https://www.dwarkesh.com/p/richard-sutton" target="_blank">dwarkesh.com/p/richard-sutton</a></li>
 <li>Richard Sutton，The Bitter Lesson，2019年 → <a href="http://www.incompleteideas.net/IncIdeas/BitterLesson.html" target="_blank">incompleteideas.net</a></li>
-<li>David Silver &amp; Richard Sutton，Welcome to the Era of Experience，2025年 → <a href="https://venturebeat.com/ai/the-era-of-experience-will-unleash-self-learning-ai-agents-across-the-web-heres-how-to-prepare" target="_blank">VentureBeat 报道</a></li>
-<li>Dwarkesh Patel，Some thoughts on the Sutton interview → <a href="https://www.dwarkesh.com/p/thoughts-on-sutton" target="_blank">dwarkesh.com/p/thoughts-on-sutton</a></li>
-<li>机器之心，Sutton判定「LLM是死胡同」后，新访谈揭示AI困境，2025年10月 → <a href="https://news.qq.com/rain/a/20251015A051CR00" target="_blank">news.qq.com</a></li>
-<li>The Decoder，Richard Sutton says the AI industry has "lost its way"，2025年 → <a href="https://the-decoder.com/richard-sutton-says-the-ai-industry-has-lost-its-way-by-ignoring-core-principles-of-intelligence/" target="_blank">the-decoder.com</a></li>
+<li>David Silver &amp; Richard Sutton，Welcome to the Era of Experience，2025年</li>
 </ul>`
   },
   {
@@ -718,8 +635,6 @@ cli-anything ./libreoffice --pdf</code></pre>
 
 <h2>第三件事：持久记忆，跨会话的上下文延续</h2>
 
-<p>ChatGPT 的 Projects、Claude 的 Projects 功能都在解决同一个问题：AI 对话是无状态的，每次开新窗口就忘了你是谁。</p>
-
 <p>Kollab 用工作区记忆（Workspace Memory）解决这个问题，而且方式更直接——记忆文件存在工作区里，可以被读取、更新，AI 每次对话都会携带这些上下文。</p>
 
 <p>这意味着什么？你不需要每次都说「我在做一个 Next.js 项目，用 Tailwind，部署在 Netlify……」。Kollab 记得。你上次让它记住的偏好、正在进行的项目信息、技术栈细节，下次对话直接可用。</p>
@@ -727,10 +642,6 @@ cli-anything ./libreoffice --pdf</code></pre>
 <hr />
 
 <h2>第四件事：文件是真实的，不是截图</h2>
-
-<p>这一点比听起来更重要。</p>
-
-<p>很多 AI 工具在处理文件任务时，给你看的是「生成的内容」，而不是「可以下载使用的文件」。你需要把内容复制出来，自己处理格式，自己保存。</p>
 
 <p>Kollab 通过 S3 文件系统直接管理文件。它生成的 .pptx、.xlsx、.docx、.pdf 是真实文件，可以直接下载，直接在 Office 里打开，直接发给别人。图片有下载链接，代码可以作为 .zip 打包，部署完的网站有真实的 URL。</p>
 
@@ -740,39 +651,9 @@ cli-anything ./libreoffice --pdf</code></pre>
 
 <h2>第五件事：部署，从「生成内容」到「交付结果」</h2>
 
-<p>这是 Kollab 和普通 AI 助手差距最明显的地方之一。</p>
-
 <p>你让 ChatGPT 帮你做一个公司介绍网站，它会给你一段 HTML 代码。你还需要自己找服务器，自己部署，自己配域名。</p>
 
 <p>Kollab 内置了部署能力：Web 应用可以直接推到 AWS Elastic Beanstalk，拿到一个公开访问的 URL，整个过程不需要你动手。本手册这个网站（kollab-handbook.netlify.app）本身就是 Kollab 生成并帮助部署的，从代码到上线全程 AI 协作完成。</p>
-
-<p>这不是说「我帮你生成了代码，你去部署吧」——而是「我帮你生成了代码，也帮你部署好了，这是链接」。</p>
-
-<hr />
-
-<h2>适合谁用</h2>
-
-<p>说完优势，说说什么情况下 Kollab 的价值最明显：</p>
-
-<p><strong>内容创作者和知识工作者</strong>：需要频繁生成文档、报告、PPT、博客的人。Kollab 能一次性给你可以直接使用的文件，而不是让你复制粘贴格式化内容。</p>
-
-<p><strong>独立开发者和小团队</strong>：需要快速从想法到部署的人。不只是帮你写代码，还能帮你把它跑起来，让别人能访问到。</p>
-
-<p><strong>需要深度调研的场景</strong>：市场分析、竞品研究、技术选型。情报官的多源调研+交叉验证，比自己一个个搜索效率高得多。</p>
-
-<p><strong>有重复工作流的用户</strong>：如果你有固定的工作模式（比如每周整理技术资讯、定期生成进度报告），可以把流程做成 Skill，之后一句话触发。</p>
-
-<hr />
-
-<h2>不适合谁用</h2>
-
-<p>诚实地说几个场景：</p>
-
-<p>如果你只是偶尔问问简单问题，普通的 Claude 或 ChatGPT 对话界面就够了，没必要用 Kollab。</p>
-
-<p>如果你的工作不需要文件输出、不需要部署、不需要深度调研，Kollab 的额外能力你可能用不上。</p>
-
-<p>如果你的工作高度依赖某个特定工具的深度集成（比如需要直接操作 Figma、Notion），目前 Kollab 的覆盖面还在扩展中，可能需要通过 MCP 等方式自行接入。</p>
 
 <hr />
 
@@ -796,70 +677,39 @@ cli-anything ./libreoffice --pdf</code></pre>
 
 <p>它们都叫做"AI Agent"，都能执行多步任务，都在命令行里工作，也都在用大语言模型驱动一切。但把这两个工具放在一起认真看，你会发现它们几乎是从两个完全不同的方向出发，碰巧在"AI Agent"这个标签下相遇的。</p>
 
-<p>这篇文章不是要选出一个"更好的工具"——这个问题没有答案。它要做的事是：<strong>把两者真正的差异讲清楚，让你在选择时不靠直觉靠理解。</strong></p>
-
 <hr />
 
 <h2>起点不同：它们是为了解决什么问题而生的</h2>
 
-<p>理解一个工具，最有效的方式是问：它的作者当时在解决什么痛点？</p>
+<p><strong>Claude Code</strong> 是 Anthropic 的内部实践结晶。Anthropic 工程师发现，用 Claude 辅助写代码时，最大的摩擦不是模型能力，而是"上下文"——模型需要看到整个代码库才能给出有意义的帮助，但标准的对话界面做不到这一点。Claude Code 被做成了一个终端工具：它在你的项目目录里启动，可以读任意文件、跑命令、管理 git，天然携带整个代码库作为上下文。</p>
 
-<p><strong>Claude Code</strong> 是 Anthropic 的内部实践结晶。Anthropic 工程师发现，用 Claude 辅助写代码时，最大的摩擦不是模型能力，而是"上下文"——模型需要看到整个代码库才能给出有意义的帮助，但标准的对话界面做不到这一点。Claude Code 被做成了一个<strong>终端工具</strong>：它在你的项目目录里启动，可以读任意文件、跑命令、管理 git，天然携带整个代码库作为上下文。</p>
+<p><strong>OpenClaw</strong> 的起点则完全不同。创始人 Peter Steinberger 想做一个"住在自己手机里的私人 AI 助理"——不是云端服务，是真正运行在你本地机器上的智能体，能通过 WhatsApp 接收指令、能在你睡觉时扫描邮件、能记住你所有的习惯和偏好。</p>
 
-<p><strong>OpenClaw</strong>（曾用名 ClawdBot、MoltBot）的起点则完全不同。创始人 Peter Steinberger，PSPDFKit 的创始人，想做一个"住在自己手机里的私人 AI 助理"——不是云端服务，是<strong>真正运行在你本地机器上的智能体</strong>，能通过 WhatsApp 接收指令、能在你睡觉时扫描邮件、能记住你所有的习惯和偏好。2025 年 11 月上线，两个月后 GitHub 星数破 68k，到 2026 年初已突破 200k。</p>
-
-<p>一句话概括起点的差异：Claude Code 是<strong>开发工具</strong>，OpenClaw 是<strong>生活助理基础设施</strong>。</p>
+<p>一句话概括：Claude Code 是<strong>开发工具</strong>，OpenClaw 是<strong>生活助理基础设施</strong>。</p>
 
 <hr />
 
 <h2>维度一：任务范围</h2>
 
-<p>这是两者差异最根本的地方。</p>
+<p><strong>Claude Code 刻意窄化了自己的边界。</strong>它读代码库、写代码、调试、跑测试、管理 git commit 和 PR——这就是全部。</p>
 
-<p><strong>Claude Code 刻意窄化了自己的边界。</strong>它读代码库、写代码、调试、跑测试、管理 git commit 和 PR——这就是全部。它不发邮件，不刷新闻，不安排会议，不控制你的桌面应用。这不是能力不足，是设计上的主动选择：专注在开发者工作流里，把这件事做到极致。</p>
-
-<p><strong>OpenClaw 刻意拓宽了自己的边界。</strong>它的目标是接管你数字生活里所有可以自动化的部分：</p>
-
-<ul>
-<li>邮件分类和草稿回复</li>
-<li>日历管理和提醒</li>
-<li>文件整理和本地脚本执行</li>
-<li>通过 WhatsApp/Telegram/Discord 等 13+ 平台接收指令</li>
-<li>代码编写（包括在内，但不是重点）</li>
-<li>MoltBook 那样的 AI 社交网络行为</li>
-</ul>
-
-<p>用一句话概括：<em>Claude Code is narrowly scoped by design. OpenClaw is broadly scoped by design.</em>（Claude Code 刻意做窄，OpenClaw 刻意做宽。）</p>
-
-<p><strong>选择逻辑因此很清晰</strong>：如果你今天的问题是"写代码太慢"，用 Claude Code。如果你的问题是"我的数字生活太乱、自动化程度太低"，OpenClaw 才是答案。</p>
+<p><strong>OpenClaw 刻意拓宽了自己的边界。</strong>它的目标是接管你数字生活里所有可以自动化的部分：邮件分类、日历管理、文件整理、通过 13+ 平台接收指令、代码编写……</p>
 
 <hr />
 
 <h2>维度二：架构与运行方式</h2>
 
-<p>两者在技术架构上的差异，深刻影响了它们各自的能力边界和风险模型。</p>
+<p><strong>Claude Code 是"云端模型 + 本地 CLI"的混合模式。</strong>它在你的终端里运行，但智能部分是 Anthropic 云端的 Claude 模型。你的代码上下文会被发送到 Anthropic 的 API 处理。</p>
 
-<p><strong>Claude Code 是"云端模型 + 本地 CLI"的混合模式。</strong>它在你的终端里运行，但智能部分是 Anthropic 云端的 Claude 模型。你的代码上下文会被发送到 Anthropic 的 API 处理，然后结果返回本地执行。需要网络连接，数据经过 Anthropic 服务器，同时你享受的是 Anthropic 持续迭代的最新模型能力。</p>
-
-<p><strong>OpenClaw 是本地编排层，模型可插拔。</strong>OpenClaw 本身运行在你机器上，负责接收消息、调度工具、管理记忆、执行动作。至于用哪个大模型，你自己选——Claude API、GPT-4o、本地 Ollama 模型都可以。这带来了一个重要的自由度：<strong>用完全本地的模型，数据完全不离开你的机器。</strong></p>
-
-<p>架构差异还体现在权限模型上。Claude Code 通常在项目目录里工作，权限相对有限。OpenClaw 的设计目标是控制你的整个系统环境，包括文件系统、应用程序、通讯工具——能力更强，风险也相应更高。Malwarebytes 的安全报告指出：OpenClaw 的权限模型是把双刃剑，一旦被恶意提示词注入，潜在危害也更大。</p>
-
-<h3>共同点：MCP（Model Context Protocol）</h3>
-
-<p>值得一提的是，两者都拥抱了 MCP——Anthropic 发起的开放标准，用于 AI 与外部工具的标准化通信。Claude Code 通过 MCP 接入 GitHub、Notion、数据库等；OpenClaw 同样可以通过 MCP 扩展工具生态。这是两者为数不多的技术层面"趋同点"之一。</p>
+<p><strong>OpenClaw 是本地编排层，模型可插拔。</strong>OpenClaw 本身运行在你机器上，负责接收消息、调度工具、管理记忆、执行动作。至于用哪个大模型，你自己选——Claude API、GPT-4o、本地 Ollama 模型都可以。</p>
 
 <hr />
 
 <h2>维度三：多智能体协作</h2>
 
-<p>2026 年初，两者都迈入了多智能体的门槛——但实现方式和应用场景不同。</p>
+<p><strong>Claude Code 的 Agent Teams</strong>：在一个复杂开发任务里，你可以启动多个 Claude Code 实例并行工作。这是开发场景里的并行加速，团队规模一般在 3-5 个 Agent。</p>
 
-<p><strong>Claude Code 的 Agent Teams</strong>（2026 年 1 月进入研究预览）：在一个复杂开发任务里，你可以启动多个 Claude Code 实例并行工作。典型场景：Team Lead 分析任务，分配给三个 Teammate——一个写前端组件，一个迁移后端 API，一个补充 E2E 测试，最后 Team Lead 整合验证。这是开发场景里的并行加速，团队规模一般在 3-5 个 Agent。</p>
-
-<p><strong>OpenClaw 的多智能体生态</strong>则走向另一个方向：ClawTeam 提供预配置的多智能体工作流蓝图；MoltBook（只有 AI 能发帖的社交平台）里聚集了 150 万个自主运行的 AI 智能体，形成了某种"AI 社会"的雏形。OpenClaw 的多智能体更像是<strong>智能体之间的协作网络</strong>，而不是单一任务下的并行执行。</p>
-
-<p>两种多智能体模式背后的机制其实相通：独立 context、消息队列通信、任务图持久化。区别在于应用层的设计取向——一个专注代码任务的并行加速，一个专注自主行为的规模化。</p>
+<p><strong>OpenClaw 的多智能体生态</strong>则走向另一个方向：ClawTeam 提供预配置的多智能体工作流蓝图；MoltBook 里聚集了 150 万个自主运行的 AI 智能体。</p>
 
 <hr />
 
@@ -872,38 +722,14 @@ cli-anything ./libreoffice --pdf</code></pre>
 <tbody>
 <tr><td>使用费用</td><td>Claude Pro（$20/月）或 Max（$100-200/月）</td><td>框架免费；需自备 LLM API Key 或本地模型</td></tr>
 <tr><td>开源</td><td>闭源（Anthropic 私有）</td><td>完全开源，MIT 许可证</td></tr>
-<tr><td>模型绑定</td><td>强绑定 Claude 模型</td><td>可接入任意 LLM（Claude、GPT-4o、Ollama 等）</td></tr>
-<tr><td>数据主权</td><td>代码上下文经过 Anthropic 服务器</td><td>可完全本地运行，数据不离机</td></tr>
+<tr><td>模型绑定</td><td>强绑定 Claude 模型</td><td>可接入任意 LLM</td></tr>
+<tr><td>数据主权</td><td>代码经过 Anthropic 服务器</td><td>可完全本地运行</td></tr>
 </tbody>
 </table>
 
-<p>OpenClaw 的"免费"有一个前提：你需要有自己的 LLM API Key 或本地算力。如果你用 Claude API，按 token 收费，重度使用下实际成本未必比 Claude Code 低。OpenClaw 真正的成本优势在于：<strong>用本地模型（Ollama + Llama 3 等）完全自托管的用户，可以做到接近零成本。</strong></p>
-
-<p>Claude Code 的"贵"有对应的价值：<strong>你用的是 Anthropic 最新 Claude 模型，代码能力处于第一梯队</strong>，同时也享受 Anthropic 的安全边界和工程支持。对于职业开发者，每月 $100 换来的生产力提升，往往是合算的。</p>
-
 <hr />
 
-<h2>维度五：上手门槛与用户群体</h2>
-
-<p><strong>Claude Code 的用户画像</strong>：职业开发者，熟悉命令行，已在用 Claude，主要需求是加速代码开发。上手门槛低——npm install，在项目目录里跑 <code>claude</code>，就能开始。已有的开发习惯基本不需要改变，Claude Code 是叠加在上面的增强层。</p>
-
-<p><strong>OpenClaw 的用户画像</strong>：技术用户（目前），长期目标是所有人。现阶段需要：配置 WhatsApp/Telegram 接入、设置 LLM API Key、理解技能（Skills）系统的配置逻辑。创始人自己说过：<em>"It's not meant for non-technical users. We're working to get it to that point."</em>（它目前不适合非技术用户，我们正在改善这一点。）</p>
-
-<p>一个简单的推论：<strong>如果你是开发者，Claude Code 是更直接的选择；如果你是技术背景的全栈用户，OpenClaw 值得认真研究。</strong></p>
-
-<hr />
-
-<h2>维度六：谁在主导，方向往哪走</h2>
-
-<p><strong>Claude Code</strong> 背后是 Anthropic，一家融资超 70 亿美元的商业公司。迭代稳定，方向由工程团队决定，商业利益和技术方向高度绑定。</p>
-
-<p><strong>OpenClaw</strong> 在 2026 年 2 月完成了所有权转移：创始人 Peter Steinberger 加入 OpenAI，项目移交给独立的 501(c)(3) 非营利基金会。这是典型的"开源社区化"路径——项目不属于任何一家公司，由社区驱动迭代。好处是去中心化；风险是社区治理的不确定性。</p>
-
-<p>从 GitHub 数据看，OpenClaw 的生态正在自我生长：awesome-openclaw（资源合集）、awesome-openclaw-skills（50+ 社区技能）、OpenClaw-RL（用对话反馈训练个性化 Agent 的框架）……这不只是一个工具，而是一个有活力的生态。</p>
-
-<hr />
-
-<h2>横向对比：一张表说清楚</h2>
+<h2>维度五：横向对比</h2>
 
 <table>
 <thead>
@@ -911,29 +737,14 @@ cli-anything ./libreoffice --pdf</code></pre>
 </thead>
 <tbody>
 <tr><td>核心定位</td><td>开发者编程加速工具</td><td>本地自主智能体框架</td></tr>
-<tr><td>任务范围</td><td>代码相关（写/调试/测试/git）</td><td>全数字生活（邮件/文件/通讯/代码）</td></tr>
+<tr><td>任务范围</td><td>代码相关</td><td>全数字生活</td></tr>
 <tr><td>运行模式</td><td>云端模型 + 本地 CLI</td><td>本地编排 + 可插拔 LLM</td></tr>
-<tr><td>开源</td><td>否（Anthropic 私有）</td><td>是（MIT，非营利基金会）</td></tr>
-<tr><td>费用</td><td>$20-200/月 Claude 订阅</td><td>框架免费，API Key 自备</td></tr>
-<tr><td>多智能体</td><td>Agent Teams（并行开发任务）</td><td>ClawTeam + MoltBook 生态</td></tr>
+<tr><td>开源</td><td>否</td><td>是（MIT）</td></tr>
 <tr><td>MCP 支持</td><td>✅</td><td>✅</td></tr>
 <tr><td>数据主权</td><td>代码经过 Anthropic 服务器</td><td>可完全本地</td></tr>
 <tr><td>上手门槛</td><td>低</td><td>中等</td></tr>
-<tr><td>控制风格</td><td>用户主动发起，同步执行</td><td>可 24/7 自主运行</td></tr>
 </tbody>
 </table>
-
-<hr />
-
-<h2>它们会走向哪里</h2>
-
-<p>两款工具的发展路径有一个有趣的交叉点：<strong>Claude Code 在向"更自主"演进，OpenClaw 在向"更易用"演进。</strong></p>
-
-<p>Claude Code 的 Agent Teams、Director Mode，都在往"你只需要说一句目标，AI 自己搞定"的方向走。这是传统编程助手向自主 Agent 的跃迁。</p>
-
-<p>OpenClaw 的路线图里，明确写着要降低非技术用户的使用门槛，把配置流程变得像装 App 一样简单。它的终极愿景是：每个人的手机里都有一个 OpenClaw，就像有电话本一样自然。</p>
-
-<p>如果两条路各自走到尽头，它们可能在某个地方重叠——一个能处理任何任务、对所有人可用、运行在本地且足够安全的通用 AI 智能体。那是另一篇文章的话题了。</p>
 
 <hr />
 
@@ -941,28 +752,11 @@ cli-anything ./libreoffice --pdf</code></pre>
 
 <p><strong>选 Claude Code，如果</strong>：你是开发者，大部分时间在写代码，想要一个能真正理解代码库、执行复杂重构和调试任务的 AI 伙伴，且不介意付月费。</p>
 
-<p><strong>选 OpenClaw，如果</strong>：你想要一个能管理你整个数字生活的本地智能体，有一定技术背景愿意配置，且对数据主权有要求——或者你只是对"开源 AI 智能体"这件事本身充满好奇。</p>
+<p><strong>选 OpenClaw，如果</strong>：你想要一个能管理你整个数字生活的本地智能体，有一定技术背景愿意配置，且对数据主权有要求。</p>
 
-<p><strong>两者都用，如果</strong>：你是重度玩家，想在代码开发上用最强工具，同时探索自主智能体的可能边界。这样的人不少。</p>
+<p><strong>两者都用，如果</strong>：你是重度玩家，想在代码开发上用最强工具，同时探索自主智能体的可能边界。</p>
 
-<p>Claude Code 和 OpenClaw 不是竞争对手，是两个不同问题的不同答案。清楚自己的问题是什么，答案自然就有了。</p>
-
-<hr />
-
-<h2>参考来源</h2>
-
-<ul>
-<li>"OpenClaw vs Claude Code" — Medium/Data Science in Your Pocket, 2026 → <a href="https://medium.com/data-science-in-your-pocket/openclaw-vs-claude-code-df91911759f9" target="_blank">medium.com</a></li>
-<li>"OpenClaw vs Claude Code: Agent vs Coding CLI in 2026" — AI Perks, 2026 → <a href="https://www.getaiperks.com/en/blogs/10-openclaw-vs-claude-code" target="_blank">getaiperks.com</a></li>
-<li>"OpenClaw vs Claude Code: Which Agentic Tool Should You Use" — DataCamp, 2026 → <a href="https://www.datacamp.com/blog/openclaw-vs-claude-code" target="_blank">datacamp.com</a></li>
-<li>"Best AI Coding Agents in 2026" — Codegen.com → <a href="https://codegen.com/blog/best-ai-coding-agents/" target="_blank">codegen.com</a></li>
-<li>"Claude Code Complete Guide 2026" — oflight.co.jp → <a href="https://www.oflight.co.jp/en/columns/claude-code-complete-guide-2026" target="_blank">oflight.co.jp</a></li>
-<li>"What Is OpenClaw and Why Developers Are Obsessed" — Clarifai Blog → <a href="https://www.clarifai.com/blog/what-is-openclaw/" target="_blank">clarifai.com</a></li>
-<li>"OpenClaw, Moltbook and the future of AI agents" — IBM Think → <a href="https://www.ibm.com/think/news/clawdbot-ai-agent-testing-limits-vertical-integration" target="_blank">ibm.com</a></li>
-<li>"Clawdbot to Moltbot to OpenClaw" — CNBC, February 2026 → <a href="https://www.cnbc.com/2026/02/02/openclaw-open-source-ai-agent-rise-controversy-clawdbot-moltbot-moltbook.html" target="_blank">cnbc.com</a></li>
-<li>"Six Things That Changed in Claude Code This Month" — Medium, February 2026 → <a href="https://medium.com/@brentwpeterson/six-things-that-changed-in-claude-code-this-month-8012f49fcb90" target="_blank">medium.com</a></li>
-<li>"Claude Code Pricing 2026" — heyuan110.com → <a href="https://www.heyuan110.com/posts/ai/2026-02-25-claude-code-pricing/" target="_blank">heyuan110.com</a></li>
-</ul>`
+<p>Claude Code 和 OpenClaw 不是竞争对手，是两个不同问题的不同答案。清楚自己的问题是什么，答案自然就有了。</p>`
   },
   {
     slug: "2026-03-16-claude-code-obsidian",
@@ -972,188 +766,294 @@ cli-anything ./libreoffice --pdf</code></pre>
     tags: ["Claude Code", "Obsidian", "知识管理", "AI Agent", "工作流"],
     author: "用户投稿",
     readTime: 10,
-    content: `<h1>Claude Code + Obsidian：让你的笔记库变成可编程的智能系统</h1>
-<p><img alt="终端与知识图谱" src="https://autoglm-agent.aminer.cn/transfer/df1e6e3b3aea7a719cdd87280f15c015cdc2bfc243eedd36aa2e07db9ed9680c.jpg" /></p>
-<blockquote>
-<p>你的 Obsidian Vault 不只是一个静态笔记库——当 Claude Code 遇上 Obsidian CLI，它就变成了一个可以理解你、帮你思考、主动整理的智能系统。</p>
-</blockquote>
-<hr />
-<h2>为什么是 Claude Code + Obsidian？</h2>
-<p>Obsidian 是最好的本地 Markdown 笔记工具之一，双向链接、图谱视图、插件生态让它成为知识管理的利器。但有一个问题：<strong>笔记越多，管理越难</strong>。孤立笔记堆积、链接断裂、标签混乱、日记写着写着就忘了回顾……</p>
+    content: `<h2>为什么是 Claude Code + Obsidian？</h2>
+
+<p>Obsidian 是最好的本地 Markdown 笔记工具之一，双向链接、图谱视图、插件生态让它成为知识管理的利器。但有一个问题：<strong>笔记越多，管理越难</strong>。</p>
+
 <p>Claude Code 是 Anthropic 推出的 CLI Agent，能理解自然语言指令，调用终端命令，读写文件。它不是一个简单的 chatbot，而是一个<strong>能直接在你的 vault 里干活的智能助手</strong>。</p>
-<p>Obsidian CLI（1.12.4+）让一切串联起来——Claude Code 通过 CLI 控制你的 Obsidian，实现搜索、创建、修改、整理笔记的全自动化流程。</p>
-<p>三者的关系很简单：</p>
-<table>
-<thead>
-<tr>
-<th>角色</th>
-<th>职责</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Obsidian</strong></td>
-<td>笔记存储与管理</td>
-</tr>
-<tr>
-<td><strong>Obsidian CLI</strong></td>
-<td>终端操控 Obsidian 的接口</td>
-</tr>
-<tr>
-<td><strong>Claude Code</strong></td>
-<td>理解意图、理解内容、执行操作</td>
-</tr>
-</tbody>
-</table>
-<p><strong>CLI 提供能力，Claude Code 提供智能。</strong></p>
+
 <hr />
-<h2>环境准备</h2>
-<h3>1. 安装 Obsidian CLI</h3>
-<p>打开 Obsidian → <strong>Settings</strong> → <strong>General</strong> → 启用 <strong>Command line interface</strong></p>
-<p>确认安装成功：</p>
-<pre><code class="language-bash">obsidian help
-</code></pre>
-<blockquote>
-<p>macOS 会自动将 <code>/Applications/Obsidian.app/Contents/MacOS</code> 加入 <code>~/.zprofile</code> 的 PATH。如果你用其他 shell，需要手动添加。</p>
-</blockquote>
-<h3>2. 安装 Claude Code</h3>
-<pre><code class="language-bash">npm install -g @anthropic-ai/claude-code
-claude --version
-</code></pre>
-<h3>3. 确认 Obsidian 运行中</h3>
-<p>Obsidian CLI 需要连接运行中的 Obsidian 实例。如果 Obsidian 没运行，第一个 CLI 命令会自动启动它。</p>
-<hr />
-<p><img alt="智能笔记本" src="https://autoglm-agent.aminer.cn/transfer/7079bbcde2148a8c288caa6673a346e627d844a32bfaf94f86d9c165b357a261.jpg" /></p>
+
 <h2>六个实战工作流</h2>
+
 <h3>工作流一：智能搜索与知识检索</h3>
-<p>传统的 Obsidian 搜索只返回匹配的文件名和片段。Claude Code 不一样——它<strong>理解内容</strong>。</p>
-<pre><code class="language-bash">claude
-</code></pre>
-<pre><code>&gt; 帮我搜索 vault 里所有关于&quot;微服务架构&quot;的笔记，总结关键观点
-&gt; 我对 GraphQL 的看法是什么？帮我找出来
-&gt; 哪些笔记提到了 Event Sourcing？按相关度排列
-</code></pre>
-<p>Claude Code 会调用 <code>obsidian search</code>，读取匹配的笔记内容，然后给出<strong>结构化的理解</strong>，而不是简单返回文件列表。</p>
+
+<pre><code>> 帮我搜索 vault 里所有关于"微服务架构"的笔记，总结关键观点
+> 我对 GraphQL 的看法是什么？帮我找出来</code></pre>
+
+<p>Claude Code 会调用 obsidian search，读取匹配的笔记内容，然后给出<strong>结构化的理解</strong>，而不是简单返回文件列表。</p>
+
 <h3>工作流二：智能笔记创建</h3>
-<p>不需要手动构思大纲，告诉 Claude Code 你要什么：</p>
-<pre><code>&gt; 帮我创建一篇关于 &quot;Event Sourcing 模式&quot; 的笔记，包含：
-&gt;   - 定义和核心概念
-&gt;   - 与传统 CRUD 的对比
-&gt;   - 适用场景
-&gt;   - 优缺点
-&gt;   相关标签和双向链接
-&gt; 用模板 &quot;Tech Note&quot;，放在 Architecture 文件夹下
-</code></pre>
-<p>Claude Code 会调用 <code>obsidian templates</code> 查看可用模板，然后用 <code>obsidian create</code> 创建带完整 frontmatter 的笔记。</p>
+
+<pre><code>> 帮我创建一篇关于 "Event Sourcing 模式" 的笔记，包含定义、对比、适用场景
+> 用模板 "Tech Note"，放在 Architecture 文件夹下</code></pre>
+
 <h3>工作流三：自动补全双向链接</h3>
-<p>这是最有价值的工作流之一。笔记越多，越容易忘记链接相关内容。</p>
-<pre><code>&gt; 读取 vault 里所有项目相关的笔记，找出语义上相关但未链接的笔记对，
-&gt; 给每个笔记补充 [[双向链接]]
-</code></pre>
-<p>执行逻辑：<br />
-1. <code>obsidian links</code> / <code>obsidian backlinks</code> 分析现有链接<br />
-2. <code>obsidian search</code> 找语义相关但未链接的笔记<br />
-3. <code>obsidian orphans</code> 找出孤立笔记<br />
-4. <code>obsidian append</code> 自动补充链接</p>
+
+<pre><code>> 读取 vault 里所有项目相关的笔记，找出语义上相关但未链接的笔记对，
+> 给每个笔记补充 [[双向链接]]</code></pre>
+
 <h3>工作流四：任务管理自动化</h3>
-<pre><code>&gt; 查看今天日记里的待办事项，帮我：
-&gt;   - 按优先级排序
-&gt;   - 标记已完成的
-&gt;   - 把&quot;写周报&quot;拆分成子任务
-</code></pre>
-<p>底层调用：</p>
-<pre><code class="language-bash">obsidian tasks daily              # 查看今日任务
-obsidian daily:read               # 读取日记
-obsidian task ref=&quot;Daily.md:5&quot; done   # 标记完成
-obsidian daily:append content=&quot;...&quot;    # 追加子任务
-</code></pre>
+
+<pre><code>> 查看今天日记里的待办事项，帮我按优先级排序，标记已完成的</code></pre>
+
 <h3>工作流五：知识图谱健康检查</h3>
-<pre><code>&gt; 分析我的 vault 健康状况：
-&gt;   - 有哪些孤岛笔记？
-&gt;   - 标签使用是否混乱？有没有同义词标签？
-&gt;   - 哪些链接已经断了？
-&gt;   - 文件夹结构需要优化吗？
-</code></pre>
-<p>Claude Code 会调用：</p>
-<pre><code class="language-bash">obsidian orphans          # 没有入链的笔记
-obsidian deadends         # 没有出链的笔记
-obsidian unresolved       # 断链
-obsidian tags counts      # 标签统计
-obsidian folders          # 文件夹结构
-obsidian properties counts # 属性统计
-</code></pre>
-<p>然后给出<strong>具体的整理建议</strong>，而不是扔给你一堆数据。</p>
-<h3>工作流六：自动生成周报/总结</h3>
-<pre><code>&gt; 读取本周所有日记，生成周报，包含：
-&gt;   - 完成的任务
-&gt;   - 遇到的问题
-&gt;   - 学到的东西
-&gt;   - 下周计划
-&gt; 保存到 Reviews/2026-W12.md
-</code></pre>
-<p>这个工作流的亮点是 <strong>context-aware</strong>——Claude Code 不只是拼接文本，它会理解每天日记的语义，提取出真正的重点。</p>
+
+<pre><code>> 分析我的 vault 健康状况：孤岛笔记、混乱标签、断链、文件夹结构优化建议</code></pre>
+
+<h3>工作流六：自动生成周报</h3>
+
+<pre><code>> 读取本周所有日记，生成周报，保存到 Reviews/2026-W12.md</code></pre>
+
 <hr />
-<p><img alt="自动化工作流" src="https://autoglm-agent.aminer.cn/transfer/ea744a388c2c7b00b4629b199d6a2dc0f81818bf078281f999d5caef7e110248.jpg" /></p>
-<h2>让 Claude Code 遵循你的笔记习惯</h2>
-<p>Claude Code 的 <code>CLAUDE.md</code> 文件相当于给 AI 写"操作手册"。在你的 Obsidian vault 目录下创建 <code>.claude/CLAUDE.md</code>，写入你的规范后，Claude Code 会自动遵循你的笔记习惯，不需要每次都重复说明。</p>
-<hr />
+
 <h2>结合 cron 实现全自动化</h2>
-<p>Claude Code 的 <code>-p</code> 参数支持单次执行模式，非常适合定时任务：</p>
-<pre><code class="language-bash"># 每天早上 8:00 自动生成今日计划
-0 8 * * * claude -p &quot;读取昨天日记的未完成任务，用 obsidian CLI 创建今天的日记模板&quot;
+
+<pre><code># 每天早上 8:00 自动生成今日计划
+0 8 * * * claude -p "读取昨天日记的未完成任务，创建今天的日记模板"
 
 # 每周五 18:00 自动生成周报
-0 18 * * 5 claude -p &quot;读取本周所有日记，生成周报，保存到 Reviews/ 文件夹&quot;
+0 18 * * 5 claude -p "读取本周所有日记，生成周报，保存到 Reviews/ 文件夹"</code></pre>
 
-# 每月 1 号检查 vault 健康状况
-0 9 1 * * claude -p &quot;检查 vault：orphans, unresolved, tags 统计，生成整理建议&quot;
-</code></pre>
 <hr />
-<h2>你的私有知识库问答系统</h2>
-<p>把 Claude Code 当作你笔记库的 <strong>RAG 问答引擎</strong>：</p>
-<pre><code>&gt; 我之前在哪篇笔记里讨论过 DDD 的聚合根设计？
-&gt; 我去年对 Next.js 的评价是什么？
-&gt; 帮我找出所有提到&quot;性能优化&quot;的笔记，总结我的方法论
-</code></pre>
-<p>它不依赖向量数据库，不需要额外部署。直接通过 CLI 搜索 + AI 理解来实现，简单高效。</p>
+
+<h2>写在最后</h2>
+
+<p>Obsidian 本身已经很强大了。加上 Claude Code 后，它从一个<strong>你需要主动管理的工具</strong>变成了一个<strong>能主动帮你思考的系统</strong>。</p>
+
+<p>关键不在于能做多少自动化，而在于<strong>让 AI 理解你的笔记内容</strong>——这才是传统脚本做不到的。</p>
+
+<p><em>本文基于 Obsidian CLI（1.12.4+）和 Claude Code 编写。</em></p>`
+  },
+  {
+    slug: "2026-03-16-openclaw-heartbeat-mechanism",
+    title: "一文讲清楚 OpenClaw 的心跳轮询机制：如何实现 24/7 全自动运行",
+    date: "2026-03-16",
+    summary: "OpenClaw 的 Heartbeat 是让 AI Agent 从「被动响应」变成「主动操作者」的关键机制。本文深度拆解心跳轮询的工作原理、HEARTBEAT.md 控制文件设计、与 Cron 的本质区别，以及如何配置一个真正 24/7 不间断运行的自治 Agent。",
+    tags: ["OpenClaw", "Heartbeat", "AI Agent", "自动化", "24/7"],
+    author: "小K",
+    readTime: 10,
+    coverImage: "/images/openclaw-heartbeat.png",
+    content: `<h2>从"聊天工具"到"自主操作者"</h2>
+<p>大多数 AI 工具都是被动的：你发消息，它回复，完事。会话结束，它就沉睡了，什么都不记得，什么都不主动做。</p>
+<p>OpenClaw 打破了这个模式。它最核心的机制之一——<strong>Heartbeat（心跳轮询）</strong>——让 Agent 能在没有任何人类触发的情况下，定期醒来、检查待办、执行任务、再回到休眠。</p>
+<p>这一个设计，把 AI 从一个<strong>你使用的工具</strong>变成了一个<strong>你监督的操作者</strong>。</p>
+
 <hr />
-<h2>注意事项</h2>
+
+<h2>心跳机制是什么？一句话解释</h2>
+<blockquote>
+<p>Heartbeat = 带 LLM 推理能力的 Cron Job。</p>
+</blockquote>
+<p>具体来说，它是一个<strong>定时调度循环</strong>：Agent 每隔 N 分钟自动醒来，读取你预先写好的任务清单（<code>HEARTBEAT.md</code>），判断当前是否有需要处理的事情，处理完再回去休眠。</p>
+<p>如果什么都不需要做，它只返回一个 <code>HEARTBEAT_OK</code>，不发任何通知——避免烦人的"无意义提醒"。</p>
+
+<hr />
+
+<h2>技术原理：一次心跳的完整生命周期</h2>
+<p>每次心跳触发时，OpenClaw 会执行以下步骤：</p>
+<ol>
+  <li><strong>调度器计时到达</strong>（默认每 30 分钟）</li>
+  <li><strong>注入系统提示</strong>，标记本次运行为 "Heartbeat" 模式</li>
+  <li><strong>读取 <code>HEARTBEAT.md</code></strong>（如果存在），作为任务上下文</li>
+  <li><strong>发送心跳 Prompt</strong>（逐字发送，不做任何修改）</li>
+  <li><strong>LLM 推理</strong>：判断有无需要关注的事项</li>
+  <li><strong>执行工具调用</strong>（查邮件、查日历、运行命令……）</li>
+  <li><strong>输出结果</strong>：有事则通知，无事则回复 <code>HEARTBEAT_OK</code> 静默结束</li>
+</ol>
+
+<p>默认的心跳 Prompt 是：</p>
+<pre><code>Read HEARTBEAT.md if it exists (workspace context). Follow it strictly.
+Do not infer or repeat old tasks from prior chats.
+If nothing needs attention, reply HEARTBEAT_OK.</code></pre>
+
+<p>你也可以把它替换成完全自定义的指令，比如"检查 Gmail PubSub 统计"或"验证 gateway 健康状态"。</p>
+
+<hr />
+
+<h2>HEARTBEAT.md：Agent 的"任务清单"</h2>
+<p>这是整个机制里最精妙的设计之一。<code>HEARTBEAT.md</code> 是一个普通的 Markdown 文件，放在 Agent 的工作空间里，作为每次心跳的执行蓝本。</p>
+
+<h3>一个典型的 HEARTBEAT.md 示例</h3>
+<pre><code># 心跳清单
+
+- 检查邮件，标记紧急邮件
+- 查看未来 2 小时内的日历事件
+- 如果有后台任务完成，汇总结果
+- 如果超过 8 小时没有对话，发送一次轻量问候
+</code></pre>
+
+<p>Agent 每次心跳都读取这份清单，用 LLM 的判断力决定哪些需要处理、哪些可以跳过。</p>
+
+<h3>Agent 可以自己更新 HEARTBEAT.md</h3>
+<p>更有趣的是：你在日常对话中，可以直接告诉 Agent "帮我盯着某件事"，Agent 会用 <code>write</code> 或 <code>edit</code> 工具把这个任务写进 <code>HEARTBEAT.md</code>。下次心跳时，它就会主动去检查。</p>
+<p>这相当于 Agent 在给自己编程，为下一次自动运行做准备。</p>
+
+<hr />
+
+<h2>配置详解：从 30 分钟到 24/7</h2>
+
+<h3>基础配置</h3>
+<pre><code>{
+  agents: {
+    defaults: {
+      heartbeat: {
+        every: "30m",           // 间隔，默认 30 分钟
+        target: "last",         // 通知发送给最后一个对话对象
+        lightContext: true,     // 只注入 HEARTBEAT.md，减少 token 消耗
+        isolatedSession: true,  // 每次独立会话，不携带完整对话历史
+      },
+    },
+  },
+}</code></pre>
+
+<h3>限制活跃时间（避免半夜骚扰）</h3>
+<pre><code>{
+  agents: {
+    defaults: {
+      heartbeat: {
+        every: "30m",
+        target: "last",
+        activeHours: {
+          start: "09:00",
+          end: "22:00",
+          timezone: "Asia/Shanghai",
+        },
+      },
+    },
+  },
+}</code></pre>
+
+<h3>真正的 24/7 全天候运行</h3>
+<pre><code>activeHours: { start: "00:00", end: "24:00" }</code></pre>
+<p>去掉 <code>activeHours</code> 限制，或者设置为全天，Agent 就会全年无休地每 30 分钟检查一次。</p>
+
+<h3>多 Agent 各自独立心跳</h3>
+<pre><code>{
+  agents: {
+    list: [
+      { id: "main", default: true },
+      {
+        id: "ops",
+        heartbeat: {
+          every: "1h",
+          target: "whatsapp",
+          to: "+15551234567",
+          prompt: "检查服务器健康状态和告警队列，有异常立即通知。",
+        },
+      },
+    ],
+  },
+}</code></pre>
+
+<hr />
+
+<h2>响应契约：HEARTBEAT_OK 的设计哲学</h2>
+<p>OpenClaw 定义了一个简洁的"安静协议"：</p>
+<ul>
+  <li>没有需要关注的事 → 回复 <code>HEARTBEAT_OK</code>，消息被静默丢弃，<strong>不通知用户</strong></li>
+  <li>有需要处理的事 → 返回具体内容，按 <code>target</code> 配置发送通知</li>
+  <li><code>HEARTBEAT_OK</code> 出现在消息<strong>开头或结尾</strong>时触发 ack 逻辑；出现在中间则不特殊处理</li>
+  <li>回复 ≤ <code>ackMaxChars</code>（默认 300 字符）时，消息整体被丢弃</li>
+</ul>
+<p>这个设计解决了自动化系统最常见的痛点：<strong>告警疲劳</strong>。Agent 只在真正需要时才打扰你，其余时间静默工作。</p>
+
+<hr />
+
+<h2>Heartbeat vs Cron：别搞混了</h2>
+
 <table>
 <thead>
 <tr>
-<th>注意点</th>
-<th>建议</th>
+<th></th>
+<th>Heartbeat 心跳</th>
+<th>Cron 定时任务</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>备份</strong></td>
-<td>Claude Code 会直接修改文件，建议给 vault 开启 Git 版本控制</td>
+<td><strong>触发方式</strong></td>
+<td>固定间隔（每 N 分钟）</td>
+<td>精确时间点（cron 表达式）</td>
 </tr>
 <tr>
-<td><strong>确认再执行</strong></td>
-<td>让 Claude 先展示操作计划，确认后再执行</td>
+<td><strong>行为</strong></td>
+<td>检查是否需要处理，智能决策</td>
+<td>无论如何都执行指定任务</td>
 </tr>
 <tr>
-<td><strong>控制范围</strong></td>
-<td>读取大量文件时注意 token 消耗，指定文件夹缩小搜索范围</td>
+<td><strong>会话上下文</strong></td>
+<td>共享主会话，知道你在做什么</td>
+<td>可隔离，独立会话不污染历史</td>
 </tr>
 <tr>
-<td><strong>frontmatter 规范</strong></td>
-<td>统一属性格式，方便 obsidian properties 查询</td>
+<td><strong>适合场景</strong></td>
+<td>监控收件箱、日历、项目状态</td>
+<td>每天 9 点发简报、每周分析</td>
 </tr>
 <tr>
-<td><strong>模板先行</strong></td>
-<td>建好模板让 Claude 遵循，输出质量更稳定</td>
+<td><strong>成本</strong></td>
+<td>一次心跳覆盖多项检查，更经济</td>
+<td>每个 job 独立消耗 token</td>
 </tr>
 </tbody>
 </table>
+
+<p><strong>一句话选择原则</strong>：需要精确时间点 → Cron；需要周期性"有没有需要关注的事" → Heartbeat。</p>
+
 <hr />
-<h2>写在最后</h2>
-<p>Obsidian 本身已经很强大了。加上 Claude Code 后，它从一个<strong>你需要主动管理的工具</strong>变成了一个<strong>能主动帮你思考的系统</strong>。</p>
-<p>关键不在于能做多少自动化，而在于<strong>让 AI 理解你的笔记内容</strong>——这才是传统脚本做不到的。</p>
-<p>试试看，你的 vault 可能比你想象的更有价值。</p>
-<p><em>本文基于 Obsidian CLI（1.12.4+）和 Claude Code 编写。</em></p>`
+
+<h2>成本控制：心跳不等于烧钱</h2>
+<ul>
+  <li><strong><code>lightContext: true</code></strong>：只注入 <code>HEARTBEAT.md</code>，不携带完整对话历史，大幅减少输入 token</li>
+  <li><strong><code>isolatedSession: true</code></strong>：每次独立会话，避免上下文膨胀</li>
+  <li><strong>HEARTBEAT_OK 静默丢弃</strong>：大多数心跳什么都不做，几乎零额外成本</li>
+  <li><strong>指定轻量模型</strong>：心跳任务不需要 Opus，用 Haiku 级别的模型完全够用</li>
+</ul>
+
+<hr />
+
+<h2>实战配置：一个真实的 24/7 Agent 设置</h2>
+<pre><code>{
+  agents: {
+    defaults: {
+      heartbeat: {
+        every: "30m",
+        target: "last",
+        lightContext: true,
+        isolatedSession: true,
+        model: "anthropic/claude-haiku-3-5",
+      },
+    },
+  },
+}</code></pre>
+
+<p>配套的 <code>HEARTBEAT.md</code>：</p>
+<pre><code># 我的 Agent 心跳清单
+
+## 必检项
+- 检查有无未读的紧急邮件（发件人包含 boss 或标题含 URGENT）
+- 查看未来 1 小时内有无日历事件
+
+## 条件触发
+- 如果有后台下载/处理任务完成，汇总结果并通知
+- 如果超过 4 小时没有任何活动，发一条轻量签到
+
+## 不需要处理时
+回复 HEARTBEAT_OK，不要发送任何消息。
+</code></pre>
+
+<hr />
+
+<h2>小结：心跳机制的本质</h2>
+<p>Heartbeat 不是一个花哨的功能，它是 OpenClaw 整个"主动 Agent"哲学的核心实现。它回答了一个关键问题：</p>
+<blockquote>
+<p>如何让 AI 在没有人类触发的情况下，有意义地主动工作？</p>
+</blockquote>
+<p>答案是：给它一个稳定的时钟节律，一份清晰的任务清单，以及一个"没事别打扰"的静默协议。</p>
+<p>配合 Cron 的精确调度、HEARTBEAT.md 的自我编程能力，一个真正意义上 24/7 自治运行的本地 AI Agent 就成型了。</p>
+<p>它不需要你一直盯着，它盯着你需要盯的事情。</p>
+<p><em>参考资料：<a href="https://docs.openclaw.ai/gateway/heartbeat" target="_blank">OpenClaw 官方 Heartbeat 文档</a> · <a href="https://docs.openclaw.ai/automation/cron-vs-heartbeat" target="_blank">Cron vs Heartbeat</a> · <a href="https://blog.kryll.io/openclaw-hooks-cron-heartbeat-ai-agent-automation/" target="_blank">OpenClaw 三大超能力解析</a></em></p>`
   }
 
 ];
