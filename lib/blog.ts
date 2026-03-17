@@ -1136,7 +1136,7 @@ obsidian properties counts # 属性统计
     tags: ["OpenClaw", "Heartbeat", "AI Agent", "自动化", "24/7"],
     author: "小K",
     readTime: 10,
-    content: `<img src="/images/openclaw-heartbeat.png" alt="OpenClaw 心跳轮询机制" style="width:100%;border-radius:12px;margin:0 0 2rem 0;" />
+    content: `<img src="/images/openclaw-heartbeat.jpg" alt="OpenClaw 心跳轮询机制" style="width:100%;border-radius:12px;margin:0 0 2rem 0;" />
 
 <h2>从"聊天工具"到"自主操作者"</h2>
 <p>大多数 AI 工具都是被动的：你发消息，它回复，完事。会话结束，它就沉睡了，什么都不记得，什么都不主动做。</p>
