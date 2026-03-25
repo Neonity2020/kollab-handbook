@@ -37,7 +37,7 @@
   --shadow: 0 4px 24px rgba(0,0,0,0.1);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
+html { scroll-behavior: smooth; font-size: 16px; scroll-padding-top: 68px; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
   background: var(--bg);
@@ -434,6 +434,8 @@ footer { border-top: 1px solid var(--border); padding: 24px; text-align: center;
     <a href="#use-cases">用例</a>
     <a href="#skills">技能</a>
     <a href="#quickstart">快速开始</a>
+    <a href="#efficiency">效率对比</a>
+    <a href="#tips">技巧</a>
     <a href="#learning-path">学习路径</a>
     <a href="#faq">FAQ</a>
   </div>
@@ -840,8 +842,13 @@ window.addEventListener('scroll', () => {
   document.getElementById('progress-bar').style.width = (sh > 0 ? (st/sh)*100 : 0) + '%';
 });
 
-// Smooth scroll helper
-function scrollTo(id) { document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+// Smooth scroll helper (accounts for 60px fixed navbar)
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const top = el.getBoundingClientRect().top + window.scrollY - 68;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
 
 // Typing animation
 const words = ['AI Agent 操控能力','全栈开发技巧','深度研究方法','文档生成魔法','自动化工作流'];
