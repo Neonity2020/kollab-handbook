@@ -1,0 +1,92 @@
+---
+title: 集成与连接
+description: 将 Kollab 连接到你常用的工具，打通数据流转
+---
+
+# 集成与连接
+
+Kollab 支持与主流工具无缝集成，让 AI 能力延伸到你的整个工作栈。
+
+## 通讯工具
+
+### 企业微信
+
+最常用的集成方式：
+
+1. 在工作流设置中找到「企业微信」连接
+2. 扫码或输入企业 ID 完成授权
+3. 选择推送目标（个人 / 群组 / 部门）
+
+支持功能：
+- 📤 向指定成员/群推送消息
+- 📥 接收消息触发工作流
+- 🤖 在企业微信中直接对话 Kollab
+
+### Slack
+
+与企业微信类似的设置流程，另外支持：
+- Slash Commands（`/kollab 搜索关键词`）
+- 在频道内 @ Kollab 机器人
+
+### 飞书
+
+<Callout type="info">
+  飞书集成目前处于 Beta 阶段，部分功能仍在开发中。
+</Callout>
+
+## 内容工具
+
+### Notion
+
+可以将 Kollab 生成的内容直接写入 Notion 数据库：
+
+```json
+{
+  "action": "notion_create_page",
+  "database_id": "your-database-id",
+  "properties": {
+    "title": "{{ai_output.title}}",
+    "content": "{{ai_output.body}}"
+  }
+}
+```
+
+### Google Docs / Drive
+
+支持读取 Google Drive 中的文档作为知识库来源，以及将输出写入 Docs。
+
+## Webhook（自定义集成）
+
+如果你的工具不在上述列表中，可以用 Webhook 做任意集成：
+
+**触发型（接收外部事件）：**
+```
+POST https://kollab.cc/webhook/{your-id}
+Content-Type: application/json
+
+{
+  "event": "new_order",
+  "order_id": "12345",
+  "customer": "张三"
+}
+```
+
+**推送型（向外部发送数据）：**
+在工作流动作中选择「发送 Webhook」，填入目标 URL 和数据模板。
+
+## API 接入
+
+开发者可以通过 REST API 将 Kollab 嵌入自己的应用：
+
+```bash
+curl -X POST https://api.kollab.cc/v1/chat \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "agent_id": "your-agent-id",
+    "message": "帮我分析这份报告",
+    "context": {}
+  }'
+```
+
+完整 API 文档请访问 [api.kollab.cc/docs](https://api.kollab.cc/docs)
