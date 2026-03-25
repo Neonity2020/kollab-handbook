@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kollab 实用手册 — 掌握 AI 魔法的完整指南</title>
+<style>
+/* ===== CSS VARIABLES ===== */
+:root {
+  --bg: #0b1120;
+  --bg2: #111827;
+  --bg3: #1a2236;
+  --border: #1e2d45;
+  --text: #e8edf5;
+  --text2: #8b9dc3;
+  --accent: #4f8ef7;
+  --accent2: #7c5cfc;
+  --accent3: #22d3ee;
+  --green: #10b981;
+  --yellow: #f59e0b;
+  --red: #ef4444;
+  --card-bg: #141e30;
+  --card-hover: #1a2844;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --radius: 12px;
+  --transition: 0.25s ease;
+}
+[data-theme="light"] {
+  --bg: #f0f4ff;
+  --bg2: #ffffff;
+  --bg3: #e8eef8;
+  --border: #d1daf0;
+  --text: #0f172a;
+  --text2: #475569;
+  --card-bg: #ffffff;
+  --card-hover: #f1f5ff;
+  --shadow: 0 4px 24px rgba(0,0,0,0.1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: var(--accent); text-decoration: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+input, textarea { font-family: inherit; }
+
+/* READING PROGRESS */
+#progress-bar {
+  position: fixed; top: 0; left: 0; z-index: 9999;
+  height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transition: width 0.1s linear;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 3px; left: 0; right: 0; z-index: 1000;
+  background: rgba(11,17,32,0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex; align-items: center; gap: 8px;
+  height: 60px;
+}
+[data-theme="light"] nav { background: rgba(240,244,255,0.92); }
+.nav-logo {
+  font-size: 1.1rem; font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-right: 8px; white-space: nowrap;
+}
+.nav-links { display: flex; gap: 4px; flex: 1; }
+.nav-links a {
+  color: var(--text2); font-size: 0.82rem; padding: 6px 10px;
+  border-radius: 6px; transition: var(--transition); white-space: nowrap;
+}
+.nav-links a:hover { color: var(--text); background: var(--bg3); }
+.nav-right { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.search-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border-radius: 8px;
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text2); font-size: 0.8rem; transition: var(--transition);
+}
+.search-btn:hover { border-color: var(--accent); color: var(--text); }
+.search-btn kbd {
+  font-size: 0.7rem; padding: 1px 5px;
+  background: var(--bg); border-radius: 4px; border: 1px solid var(--border);
+}
+#fav-btn {
+  position: relative;
+  padding: 6px 12px; border-radius: 8px;
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text2); font-size: 0.82rem; transition: var(--transition);
+  display: flex; align-items: center; gap: 4px;
+}
+#fav-btn:hover { border-color: var(--yellow); color: var(--yellow); }
+#fav-count {
+  background: var(--yellow); color: #000;
+  font-size: 0.65rem; font-weight: 700;
+  min-width: 16px; height: 16px; border-radius: 8px;
+  display: none; align-items: center; justify-content: center;
+  padding: 0 4px;
+}
+.trial-btn {
+  padding: 6px 14px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff; font-size: 0.82rem; font-weight: 600;
+  transition: var(--transition);
+}
+.trial-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+#theme-btn {
+  width: 34px; height: 34px; border-radius: 8px;
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text2); font-size: 1rem; transition: var(--transition);
+  display: flex; align-items: center; justify-content: center;
+}
+#theme-btn:hover { border-color: var(--accent); }
+
+/* SECTIONS */
+.sec { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
+.section-label {
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 12px;
+}
+.section-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+.section-desc { color: var(--text2); font-size: 1rem; max-width: 600px; line-height: 1.7; }
+
+/* HERO */
+#hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 100px 24px 60px;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(79,142,247,0.12) 0%, transparent 70%),
+              radial-gradient(ellipse 50% 40% at 80% 80%, rgba(124,92,252,0.08) 0%, transparent 60%);
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 100px;
+  background: rgba(79,142,247,0.12); border: 1px solid rgba(79,142,247,0.3);
+  font-size: 0.8rem; color: var(--accent); margin-bottom: 28px;
+}
+.hero-title { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 24px; }
+.hero-title .grad {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-sub { font-size: 1.1rem; color: var(--text2); max-width: 540px; margin: 0 auto 32px; line-height: 1.7; }
+#typing-text { color: var(--accent3); font-weight: 600; border-right: 2px solid var(--accent3); animation: blink 0.8s infinite; }
+@keyframes blink { 0%,100%{border-color:var(--accent3)} 50%{border-color:transparent} }
+.hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; }
+.btn-primary {
+  padding: 12px 28px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff; font-size: 0.95rem; font-weight: 700;
+  transition: var(--transition); box-shadow: 0 4px 20px rgba(79,142,247,0.3);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(79,142,247,0.4); }
+.btn-outline {
+  padding: 12px 28px; border-radius: 10px;
+  background: transparent; border: 1.5px solid var(--border);
+  color: var(--text); font-size: 0.95rem; font-weight: 600;
+  transition: var(--transition);
+}
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+.hero-stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+.stat { text-align: center; }
+.stat-num { font-size: 2rem; font-weight: 800; }
+.stat-label { font-size: 0.8rem; color: var(--text2); }
+
+/* OVERVIEW */
+.overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 40px; }
+.overview-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px; transition: var(--transition);
+}
+.overview-card:hover { background: var(--card-hover); border-color: var(--accent); transform: translateY(-3px); }
+.ov-icon { font-size: 1.8rem; margin-bottom: 12px; }
+.ov-title { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.ov-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+
+/* USE CASES */
+.filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+.filter-tab {
+  padding: 6px 16px; border-radius: 100px;
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text2); font-size: 0.82rem; transition: var(--transition);
+}
+.filter-tab.active, .filter-tab:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.uc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.uc-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px;
+  position: relative; transition: var(--transition); cursor: pointer;
+}
+.uc-card:hover { border-color: var(--accent); box-shadow: 0 8px 32px rgba(79,142,247,0.15); }
+.uc-card.hidden { display: none; }
+.uc-tag {
+  display: inline-block; padding: 3px 10px; border-radius: 100px;
+  font-size: 0.72rem; font-weight: 600; margin-bottom: 14px;
+}
+.tag-dev { background: rgba(79,142,247,0.15); color: var(--accent); }
+.tag-content { background: rgba(124,92,252,0.15); color: var(--accent2); }
+.tag-research { background: rgba(34,211,238,0.15); color: var(--accent3); }
+.tag-file { background: rgba(16,185,129,0.15); color: var(--green); }
+.uc-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+.uc-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; margin-bottom: 16px; }
+.uc-metrics { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+.uc-metric { font-size: 0.75rem; color: var(--green); background: rgba(16,185,129,0.1); padding: 3px 10px; border-radius: 100px; }
+.uc-actions { display: flex; justify-content: space-between; align-items: center; }
+.uc-detail-btn {
+  font-size: 0.8rem; color: var(--accent);
+  padding: 5px 12px; border-radius: 6px;
+  border: 1px solid rgba(79,142,247,0.3); transition: var(--transition);
+}
+.uc-detail-btn:hover { background: rgba(79,142,247,0.1); }
+.fav-toggle {
+  width: 30px; height: 30px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg3); border: 1px solid var(--border);
+  font-size: 0.9rem; transition: var(--transition); color: var(--text2);
+}
+.fav-toggle:hover, .fav-toggle.active { background: rgba(245,158,11,0.1); border-color: var(--yellow); color: var(--yellow); }
+
+/* SKILLS */
+#skills-sec { background: var(--bg2); border-radius: 20px; padding: 60px 40px; margin: 0 24px; }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); gap: 14px; margin-top: 36px; }
+.skill-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px; transition: var(--transition);
+}
+.skill-card:hover { border-color: var(--accent2); transform: translateY(-2px); }
+.skill-icon { font-size: 1.5rem; margin-bottom: 8px; }
+.skill-name { font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
+.skill-desc { font-size: 0.78rem; color: var(--text2); line-height: 1.5; }
+
+/* QUICK START */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 36px; }
+.step { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+.step-num {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 1.1rem; color: #fff; margin-bottom: 16px;
+}
+.step-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+.step-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+.step-code {
+  margin-top: 14px; padding: 12px 14px;
+  background: var(--bg); border-radius: 8px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.8rem; color: var(--accent3); border: 1px solid var(--border);
+  position: relative; white-space: pre-wrap; line-height: 1.6;
+}
+.copy-code {
+  position: absolute; top: 8px; right: 8px;
+  padding: 3px 8px; border-radius: 5px;
+  background: var(--bg3); color: var(--text2); font-size: 0.7rem;
+  transition: var(--transition);
+}
+.copy-code:hover { background: var(--accent); color: #fff; }
+
+/* EFFICIENCY TABLE */
+.table-wrap { overflow-x: auto; margin-top: 36px; border-radius: var(--radius); border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+th { background: var(--bg3); padding: 12px 16px; text-align: left; color: var(--text2); font-weight: 600; border-bottom: 2px solid var(--border); }
+td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text); }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--card-hover); }
+.save-badge { display: inline-block; padding: 2px 8px; border-radius: 100px; background: rgba(16,185,129,0.15); color: var(--green); font-size: 0.75rem; font-weight: 700; }
+
+/* PRO TIPS */
+.tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 36px; }
+.tip-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; transition: var(--transition); }
+.tip-card:hover { border-color: var(--accent3); }
+.tip-icon { font-size: 1.4rem; margin-bottom: 10px; }
+.tip-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+.tip-body { font-size: 0.83rem; color: var(--text2); line-height: 1.6; }
+.tip-code {
+  margin-top: 10px; padding: 10px 12px; background: var(--bg);
+  border-radius: 6px; font-family: 'SF Mono','Fira Code',monospace;
+  font-size: 0.78rem; color: var(--accent3); border: 1px solid var(--border);
+  white-space: pre-wrap; line-height: 1.6;
+}
+
+/* LEARNING PATH */
+#lp-sec { background: var(--bg2); border-radius: 20px; padding: 60px 40px; margin: 0 24px; }
+.lp-progress-wrap { width: 100%; margin: 24px 0 36px; }
+.lp-progress-label { font-size: 0.82rem; color: var(--text2); margin-bottom: 8px; display: flex; justify-content: space-between; }
+.lp-bar-bg { height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+.lp-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width 0.4s ease; }
+.phases { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.phase { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+.phase-title { font-size: 0.78rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+.lp-task { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); cursor: pointer; transition: var(--transition); }
+.lp-task:last-child { border-bottom: none; }
+.lp-checkbox {
+  width: 18px; height: 18px; min-width: 18px; border-radius: 5px;
+  border: 2px solid var(--border); background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; transition: var(--transition); margin-top: 2px; color: transparent;
+}
+.lp-task.done .lp-checkbox { background: var(--green); border-color: var(--green); color: #fff; }
+.lp-task-label { font-size: 0.85rem; color: var(--text2); line-height: 1.4; }
+.lp-task.done .lp-task-label { text-decoration: line-through; opacity: 0.55; }
+
+/* FAQ */
+.faq-list { margin-top: 36px; display: flex; flex-direction: column; gap: 10px; }
+.faq-item { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color 0.2s; }
+.faq-item.open { border-color: var(--accent); }
+.faq-q { display: flex; justify-content: space-between; align-items: center; padding: 18px 22px; cursor: pointer; gap: 12px; font-weight: 600; font-size: 0.95rem; }
+.faq-arrow { font-size: 0.8rem; color: var(--text2); transition: transform 0.25s; }
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+.faq-a { max-height: 0; overflow: hidden; padding: 0 22px; font-size: 0.88rem; color: var(--text2); line-height: 1.7; transition: max-height 0.35s ease, padding 0.25s; }
+.faq-item.open .faq-a { max-height: 300px; padding: 0 22px 18px; }
+
+/* CTA */
+#cta {
+  text-align: center; padding: 80px 24px;
+  background: linear-gradient(135deg, rgba(79,142,247,0.08), rgba(124,92,252,0.08));
+  border-radius: 24px; margin: 40px 24px;
+}
+.cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* FOOTER */
+footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; font-size: 0.82rem; color: var(--text2); }
+
+/* MODAL BACKDROP */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 5000;
+  background: rgba(0,0,0,0.65); backdrop-filter: blur(4px);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 80px 16px 16px;
+  opacity: 0; pointer-events: none; transition: opacity 0.2s;
+}
+.modal-backdrop.open { opacity: 1; pointer-events: all; }
+.modal-close {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--bg3); color: var(--text2); font-size: 1rem;
+  display: flex; align-items: center; justify-content: center; transition: var(--transition);
+}
+.modal-close:hover { background: var(--red); color: #fff; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+
+/* SEARCH MODAL */
+.search-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 580px; overflow: hidden; box-shadow: var(--shadow); }
+.search-input-wrap { display: flex; align-items: center; gap: 10px; padding: 16px 18px; border-bottom: 1px solid var(--border); }
+.search-input-wrap span { color: var(--text2); font-size: 1.1rem; }
+#search-input { flex: 1; background: none; border: none; outline: none; color: var(--text); font-size: 1rem; }
+.search-input-wrap kbd { font-size: 0.7rem; padding: 2px 6px; background: var(--bg3); border-radius: 4px; border: 1px solid var(--border); color: var(--text2); }
+#search-results { max-height: 380px; overflow-y: auto; }
+.search-result { display: flex; align-items: center; gap: 12px; padding: 12px 18px; cursor: pointer; transition: var(--transition); border-bottom: 1px solid var(--border); }
+.search-result:last-child { border-bottom: none; }
+.search-result:hover { background: var(--card-hover); }
+.search-result-icon { font-size: 1.2rem; width: 32px; }
+.sr-title { font-size: 0.9rem; font-weight: 600; }
+.sr-desc { font-size: 0.78rem; color: var(--text2); }
+.search-section-label { padding: 10px 18px 4px; font-size: 0.72rem; color: var(--text2); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+.search-empty { padding: 28px 18px; text-align: center; color: var(--text2); font-size: 0.9rem; }
+
+/* TRIAL MODAL */
+.trial-modal { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; width: 100%; max-width: 680px; max-height: 80vh; overflow-y: auto; box-shadow: var(--shadow); padding: 32px; }
+.scenario-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.scenario-tab { padding: 6px 14px; border-radius: 8px; background: var(--bg3); border: 1px solid var(--border); color: var(--text2); font-size: 0.82rem; transition: var(--transition); }
+.scenario-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.scenario-content { display: none; }
+.scenario-content.active { display: block; }
+.sc-label { font-size: 0.75rem; color: var(--text2); font-weight: 700; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+.sc-prompt { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 14px; color: var(--text); font-size: 0.88rem; line-height: 1.6; resize: vertical; min-height: 130px; outline: none; }
+.sc-prompt:focus { border-color: var(--accent); }
+.sc-meta { font-size: 0.8rem; color: var(--text2); margin-top: 8px; padding: 10px 14px; background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border); }
+.sc-actions { margin-top: 14px; }
+.btn-copy-prompt { padding: 8px 18px; border-radius: 8px; background: var(--accent); color: #fff; font-size: 0.85rem; font-weight: 600; transition: var(--transition); }
+.btn-copy-prompt:hover { opacity: 0.85; }
+
+/* DETAIL MODAL */
+.detail-modal { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; width: 100%; max-width: 700px; max-height: 80vh; overflow-y: auto; box-shadow: var(--shadow); padding: 36px; }
+.detail-steps { margin-top: 20px; }
+.detail-step { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+.detail-step:last-child { border-bottom: none; }
+.detail-step-num { width: 28px; height: 28px; min-width: 28px; border-radius: 8px; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; margin-top: 2px; }
+.detail-step-title { font-size: 0.92rem; font-weight: 700; margin-bottom: 4px; }
+.detail-step-desc { font-size: 0.83rem; color: var(--text2); line-height: 1.6; }
+
+/* FAVS MODAL */
+.favs-modal { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; width: 100%; max-width: 560px; max-height: 75vh; overflow-y: auto; box-shadow: var(--shadow); padding: 32px; }
+.fav-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; }
+.fav-item-title { font-size: 0.9rem; font-weight: 600; }
+.fav-item-desc { font-size: 0.78rem; color: var(--text2); margin-top: 2px; }
+.fav-remove { color: var(--text2); font-size: 0.8rem; padding: 4px 8px; border-radius: 5px; background: var(--bg3); transition: var(--transition); }
+.fav-remove:hover { background: var(--red); color: #fff; }
+.favs-empty { text-align: center; padding: 32px; color: var(--text2); font-size: 0.9rem; }
+
+/* TOAST */
+#toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9000; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+.toast { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 18px; font-size: 0.85rem; color: var(--text); box-shadow: var(--shadow); pointer-events: all; transform: translateX(120%); transition: transform 0.3s ease; max-width: 280px; }
+.toast.show { transform: translateX(0); }
+
+/* ANIMATIONS */
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 0 12px; }
+  .nav-links { display: none; }
+  .sec { padding: 60px 16px; }
+  #skills-sec, #lp-sec { padding: 40px 20px; margin: 0 12px; }
+  .hero-stats { gap: 20px; }
+  .modal-backdrop { padding: 50px 10px 10px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="toast-container"></div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Kollab 手册</span>
+  <div class="nav-links">
+    <a href="#overview">概览</a>
+    <a href="#use-cases">用例</a>
+    <a href="#skills">技能</a>
+    <a href="#quickstart">快速开始</a>
+    <a href="#learning-path">学习路径</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <div class="nav-right">
+    <button class="search-btn" onclick="openSearch()">🔍 搜索 <kbd>/</kbd></button>
+    <button id="fav-btn" onclick="openFavs()">⭐ 收藏 <span id="fav-count">0</span></button>
+    <button class="trial-btn" onclick="openTrial()">试炼场</button>
+    <button id="theme-btn" onclick="toggleTheme()">🌙</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🤖 AI 驱动的全栈工作平台</div>
+    <h1 class="hero-title">
+      Kollab 实用手册<br>
+      <span class="grad">用 AI 魔法重塑工作方式</span>
+    </h1>
+    <p class="hero-sub">从零到精通，掌握 <span id="typing-text"></span><br>让每一个任务都快 10 倍完成</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="scrollTo('use-cases')">探索用例</button>
+      <button class="btn-outline" onclick="openTrial()">打开试炼场</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num" data-target="212">0</div><div class="stat-label">GitHub 仓库</div></div>
+      <div class="stat"><div class="stat-num" data-target="15">0</div><div class="stat-label">核心技能</div></div>
+      <div class="stat"><div class="stat-num" data-target="90">0</div><div class="stat-label">% 效率提升</div></div>
+      <div class="stat"><div class="stat-num" data-target="7">0</div><div class="stat-label">天掌握路径</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section id="overview" class="sec">
+  <div class="section-label">平台概览</div>
+  <h2 class="section-title">Kollab 能做什么</h2>
+  <p class="section-desc">一个 AI Agent 平台，连接你的代码、文档、GitHub、Notion，用对话完成原本需要几小时的工作。</p>
+  <div class="overview-grid">
+    <div class="overview-card fade-in"><div class="ov-icon">💻</div><div class="ov-title">全栈开发</div><div class="ov-desc">从需求到部署，AI 写代码、建数据库、配 CI/CD，一站搞定。</div></div>
+    <div class="overview-card fade-in"><div class="ov-icon">📄</div><div class="ov-title">文档生成</div><div class="ov-desc">PPT、Word、PDF、Excel，描述需求秒出专业文档，支持多语言。</div></div>
+    <div class="overview-card fade-in"><div class="ov-icon">🔍</div><div class="ov-title">深度研究</div><div class="ov-desc">多轮搜索、交叉验证，生成有来源的研究报告，比手工快 20 倍。</div></div>
+    <div class="overview-card fade-in"><div class="ov-icon">🔗</div><div class="ov-title">工具连接</div><div class="ov-desc">GitHub、Notion、企业微信、飞书，通过 MCP 无缝集成所有工具。</div></div>
+    <div class="overview-card fade-in"><div class="ov-icon">🖼️</div><div class="ov-title">视觉创作</div><div class="ov-desc">文字生图、海报设计、UI 原型，Gemini 驱动的图像生成能力。</div></div>
+    <div class="overview-card fade-in"><div class="ov-icon">🚀</div><div class="ov-title">一键部署</div><div class="ov-desc">写好代码自动部署到 AWS Elastic Beanstalk，给你一个公网 URL。</div></div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section id="use-cases" class="sec">
+  <div class="section-label">核心用例</div>
+  <h2 class="section-title">8 大场景实战指南</h2>
+  <p class="section-desc">每个用例都是一个完整的「任务 → 操作 → 输出」闭环，直接复制提示词就能用。</p>
+  <div class="filter-tabs">
+    <button class="filter-tab active" data-filter="all">全部</button>
+    <button class="filter-tab" data-filter="dev">开发</button>
+    <button class="filter-tab" data-filter="content">内容</button>
+    <button class="filter-tab" data-filter="research">研究</button>
+    <button class="filter-tab" data-filter="file">文件</button>
+  </div>
+  <div class="uc-grid">
+    <div class="uc-card fade-in" data-cat="dev" data-ucid="1"><span class="uc-tag tag-dev">开发</span><div class="uc-title">全栈应用构建</div><div class="uc-desc">从产品需求到线上部署，AI 自动搭建前后端架构，配置数据库，生成完整代码并部署。</div><div class="uc-metrics"><span class="uc-metric">节省 80% 时间</span><span class="uc-metric">自动部署</span></div><div class="uc-actions"><button class="uc-detail-btn" onclick="openDetail(1)">查看完整指南</button><button class="fav-toggle" data-ucid="1" onclick="toggleFav(event,1)">☆</button></div></div>
+    <div class="uc-card fade-in" data-cat="dev" data-ucid="2"><span class="uc-tag tag-dev">开发</span><div class="uc-title">GitHub 工作流管理</div><div class="uc-desc">读取仓库文件、提交代码、管理 Issues 和 PR，用自然语言操控你的 GitHub 工作流。</div><div class="uc-metrics"><span class="uc-metric">直连 GitHub API</span><span class="uc-metric">自动 PR</span></div><div class="uc-actions"><button class="uc-detail-btn" onclick="openDetail(2)">查看完整指南</button><button class="fav-toggle" data-ucid="2" onclick="toggleFav(event,2)">☆</button></div></div>
+    <div class="uc-card fade-in" data-cat="research" data-ucid="3"><span class="uc-tag tag-research">研究</span><div class="uc-title">深度研究报告</div><div class="uc-desc">多轮网络搜索、交叉验证信息源，自动生成带引用的 Markdown 研究报告，附完整参考文献。</div><div class="uc-metrics"><span class="uc-metric">20x 速度</span><span class="uc-metric">带引用</span></div><div class="uc-actions"><button class="uc-detail-btn" onclick="openDetail(3)">查看完整指南</button><button class="fav-toggle" data-ucid="3" onclick="toggleFav(event,3)">☆</button></div></div>
+    <div class="uc-card fade-in" data-cat="content" data-ucid="4"><span class="uc-tag tag-content">内容</span><div class="uc-title">专业 PPT 生成</div><div class="uc-desc">一句话描述主题，AI 生成完整演示文稿，支持大厂简约风、数据可视化、多语言版本。</div><div class="uc-metrics"><span class="uc-metric">5 分钟出稿</span><span class="uc-metric">可下载 .pptx</span></div><div class="uc-actions"><button class="uc-detail-btn" onclick="openDetail(4)">查看完整指南</button><button class="fav-toggle" data-ucid="4" onclick="toggleFav(event,4)">☆</button></div></div>
+    <div class="uc-card fade-in" data-cat="file" data-ucid="5"><span class="uc-tag tag-file">文件</span><div class="uc-title">文件处理与转换</div><div class="uc-desc">上传 PDF/Excel/Word，AI 提取关键信息、转换格式、批量处理，输出结构化结果。</div><div class="uc-metrics"><span class="uc-metric">支持 10+ 格式</span><span class="uc-metric">批量处理</span></div><div class="uc-actions"><button class="uc-detail-btn" onclick="openDetail(5)">查看完整指南</button><button class="fav-toggle" data-ucid="5" onclick="toggleFav(event,5)">☆</button></div></div>
+    <div class="uc-card fade-in" data-cat="content" data-ucid="6"><span class="uc-tag tag-content">内容</span><div class="uc-title">AI 图像生成</div><div class="uc-desc">文字描述生成高质量图片，支持风格迁移、图像编辑，由 Google Gemini 驱动，7 天有效期。</div><div class="uc-metrics"><span class="uc-metric">Gemini 驱动</span><span class="uc-metric">多风格支持</span></div><div class="uc-actions"><button class="uc-detail-btn" onclick="openDetail(6)">查看完整指南</button><button class="fav-toggle" data-ucid="6" onclick="toggleFav(event,6)">☆</button></div></div>
+    <div class="uc-card fade-in" data-cat="research" data-ucid="7"><span class="uc-tag tag-research">研究</span><div class="uc-title">数据分析与可视化</div><div class="uc-desc">上传数据集，AI 自动清洗、统计分析、生成图表，输出完整分析报告和可下载文件。</div><div class="uc-metrics"><span class="uc-metric">Python 驱动</span><span class="uc-metric">自动图表</span></div><div class="uc-actions"><button class="uc-detail-btn" onclick="openDetail(7)">查看完整指南</button><button class="fav-toggle" data-ucid="7" onclick="toggleFav(event,7)">☆</button></div></div>
+    <div class="uc-card fade-in" data-cat="dev" data-ucid="8"><span class="uc-tag tag-dev">开发</span><div class="uc-title">自动化工作流</div><div class="uc-desc">设置定时任务、Webhook 触发器，AI 自动执行代码、更新数据库、发送通知，无需人工干预。</div><div class="uc-metrics"><span class="uc-metric">定时触发</span><span class="uc-metric">无人值守</span></div><div class="uc-actions"><button class="uc-detail-btn" onclick="openDetail(8)">查看完整指南</button><button class="fav-toggle" data-ucid="8" onclick="toggleFav(event,8)">☆</button></div></div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div id="skills-sec">
+    <div class="section-label">技能生态</div>
+    <h2 class="section-title">15 个核心技能</h2>
+    <p class="section-desc">每个技能都是一个专门的 AI 能力模块，组合使用威力倍增。</p>
+    <div class="skills-grid">
+      <div class="skill-card fade-in"><div class="skill-icon">🔍</div><div class="skill-name">web-search</div><div class="skill-desc">联网搜索与网页内容抓取</div></div>
+      <div class="skill-card fade-in"><div class="skill-icon">📊</div><div class="skill-name">xlsx</div><div class="skill-desc">Excel 文件创建、读取、编辑</div></div>
+      <div class="skill-card fade-in"><div class="skill-icon">📄</div><div class="skill-name">pdf</div><div class="skill-desc">PDF 读取、合并、OCR 识别</div></div>
+      <div class="skill-card fade-in"><div class="skill-icon">📝</div><div class="skill-name">docx</div><div class="skill-desc">Word 文档创建与编辑</div></div>
+      <div class="skill-card fade-in"><div class="skill-icon">📑</div><div class="skill-name">pptx</div><div class="skill-desc">演示文稿生成与编辑</div></div>
+      <div class="skill-card fade-in"><div class="skill-icon">🖼️</div><div class="skill-name">nano-banana-2</div><div class="skill-desc">Gemini 图像生成与编辑</div></div>
+      <div class="skill-card fade-in"><div class="skill-icon">🚀</div><div class="skill-name">eb-deploy</div><div class="skill-desc">AWS Elastic Beanstalk 部署</div></div>
+      <div class="skill-card fade-in"><div class="skill-icon">📦</div><div class="skill-name">s3-file</div><div class="skill-desc">文件上传下载与 S3 管理</div></div>
+      <div class="skill-card fade-in"><div class="skill-icon">🔬</div><div class="skill-name">deep-research</div><div class="skill-desc">多轮深度研究报告生成</div></div>
+      <div class="skill-card fade-in"><div class="skill-icon">🤖</div><div class="skill-name">claude-api</div><div class="skill-desc">Claude API 与 Agent SDK</div></div>
+      <div class="skill-card fade-in"><div class="skill-icon">🎨</div><div class="skill-name">canvas-design</div><div class="skill-desc">视觉设计与海报生成</div></div>
+      <div class="skill-card fade-in"><div class="skill-icon">📚</div><div class="skill-name">context7</div><div class="skill-desc">实时库文档查询</div></div>
+      <div class="skill-card fade-in"><div class="skill-icon">⚙️</div><div class="skill-name">kollab-cli</div><div class="skill-desc">工作区资源管理</div></div>
+      <div class="skill-card fade-in"><div class="skill-icon">✍️</div><div class="skill-name">doc-coauthoring</div><div class="skill-desc">协作式文档写作流程</div></div>
+      <div class="skill-card fade-in"><div class="skill-icon">🛠️</div><div class="skill-name">skill-creator</div><div class="skill-desc">创建和优化自定义技能</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK START -->
+<section id="quickstart" class="sec">
+  <div class="section-label">快速开始</div>
+  <h2 class="section-title">3 步上手 Kollab</h2>
+  <p class="section-desc">从零到完成第一个任务，不超过 10 分钟。</p>
+  <div class="steps">
+    <div class="step fade-in">
+      <div class="step-num">1</div>
+      <div class="step-title">建立对话，描述任务</div>
+      <div class="step-desc">直接用自然语言描述你想要的结果，不需要技术术语。越具体越好。</div>
+      <div class="step-code">帮我构建一个任务管理的 Web 应用，
+用 Flask + SQLite，支持增删改查，
+部署到线上并给我链接。<button class="copy-code" onclick="copyText(this,'帮我构建一个任务管理的 Web 应用，\n用 Flask + SQLite，支持增删改查，\n部署到线上并给我链接。')">复制</button></div>
+    </div>
+    <div class="step fade-in">
+      <div class="step-num">2</div>
+      <div class="step-title">让 AI 自动执行</div>
+      <div class="step-desc">Kollab 会自动拆分任务、写代码、测试、修复错误，全程不需要你手动干预。</div>
+      <div class="step-code">AI 自动完成：
+→ 搭建项目结构
+→ 编写前后端代码
+→ 本地测试验证
+→ 部署到 AWS EB</div>
+    </div>
+    <div class="step fade-in">
+      <div class="step-num">3</div>
+      <div class="step-title">获取结果，迭代优化</div>
+      <div class="step-desc">拿到公网 URL 和源码下载链接，继续对话描述修改需求，AI 立即更新。</div>
+      <div class="step-code">把登录页面改成深色主题，
+再加一个数据导出成 Excel 的功能。<button class="copy-code" onclick="copyText(this,'把登录页面改成深色主题，\n再加一个数据导出成 Excel 的功能。')">复制</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- EFFICIENCY TABLE -->
+<section id="efficiency" class="sec">
+  <div class="section-label">效率对比</div>
+  <h2 class="section-title">AI vs 手动：时间节省一览</h2>
+  <p class="section-desc">基于真实任务的时间对比，展示 Kollab 在各类场景下的效率优势。</p>
+  <div class="table-wrap fade-in">
+    <table>
+      <thead><tr><th>任务类型</th><th>手动完成时间</th><th>Kollab 完成时间</th><th>节省比例</th></tr></thead>
+      <tbody>
+        <tr><td>全栈 Web 应用（前后端+部署）</td><td>2-3 天</td><td>1-2 小时</td><td><span class="save-badge">节省 95%</span></td></tr>
+        <tr><td>10 页专业 PPT</td><td>3-5 小时</td><td>5-10 分钟</td><td><span class="save-badge">节省 95%</span></td></tr>
+        <tr><td>行业深度研究报告</td><td>1-2 天</td><td>20-40 分钟</td><td><span class="save-badge">节省 90%</span></td></tr>
+        <tr><td>数据清洗 + 可视化</td><td>4-8 小时</td><td>15-30 分钟</td><td><span class="save-badge">节省 90%</span></td></tr>
+        <tr><td>PDF 批量提取 + 整理</td><td>2-4 小时</td><td>5-15 分钟</td><td><span class="save-badge">节省 90%</span></td></tr>
+        <tr><td>GitHub PR + Code Review</td><td>30-60 分钟</td><td>5-10 分钟</td><td><span class="save-badge">节省 85%</span></td></tr>
+        <tr><td>Word 报告文档撰写</td><td>2-4 小时</td><td>10-20 分钟</td><td><span class="save-badge">节省 88%</span></td></tr>
+        <tr><td>自动化脚本编写</td><td>1-3 小时</td><td>5-15 分钟</td><td><span class="save-badge">节省 85%</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PRO TIPS -->
+<section id="tips" class="sec">
+  <div class="section-label">高效技巧</div>
+  <h2 class="section-title">让 Kollab 发挥 10 倍威力</h2>
+  <p class="section-desc">这些技巧来自高频用户的实际使用经验，掌握后效率直接翻倍。</p>
+  <div class="tips-grid">
+    <div class="tip-card fade-in"><div class="tip-icon">🎯</div><div class="tip-title">具体描述输出格式</div><div class="tip-body">告诉 AI 你想要什么文件格式、什么风格、多少页。模糊需求会得到模糊结果。</div><div class="tip-code">生成一份 8 页的市场分析 PPT，简约商务风，
+包含竞品对比表和 3 个核心数据图表。</div></div>
+    <div class="tip-card fade-in"><div class="tip-icon">🔗</div><div class="tip-title">连接 GitHub 做代码审查</div><div class="tip-body">连接你的 GitHub 账号后，可以直接让 AI 读取仓库文件、分析 PR、提交修复。</div><div class="tip-code">读取我的 Neonity2020/video-vault 仓库，
+分析最近 5 个 commit 的代码质量。</div></div>
+    <div class="tip-card fade-in"><div class="tip-icon">📎</div><div class="tip-title">上传文件直接处理</div><div class="tip-body">直接上传 PDF、Excel、图片，AI 能读取内容并执行操作，不用手动复制粘贴。</div><div class="tip-code">（上传财务报表.xlsx）
+提取所有月度收入数据，生成折线图
+并输出一份摘要报告。</div></div>
+    <div class="tip-card fade-in"><div class="tip-icon">🔄</div><div class="tip-title">迭代而不是重来</div><div class="tip-body">AI 完成任务后，直接在对话里说"改成 X 风格"或"加上 Y 功能"，不用重新开始。</div><div class="tip-code">把刚才的报告改成英文版，
+标题换成更有冲击力的表达。</div></div>
+    <div class="tip-card fade-in"><div class="tip-icon">⭐</div><div class="tip-title">收藏高频提示词</div><div class="tip-body">发现好用的提示词就收藏，形成自己的提示词库，下次直接复用，不用重新想。</div><div class="tip-code">点击用例卡片右下角的 ☆ 按钮加入收藏，
+随时从导航栏调取。</div></div>
+    <div class="tip-card fade-in"><div class="tip-icon">🧪</div><div class="tip-title">用试炼场测试提示词</div><div class="tip-body">不确定提示词效果时，先在试炼场里看预期输出，找到最佳表达再真正执行。</div><div class="tip-code">点击导航栏「试炼场」→ 选择场景
+→ 编辑提示词 → 复制后粘贴执行。</div></div>
+  </div>
+</section>
+
+<!-- LEARNING PATH -->
+<section id="learning-path">
+  <div id="lp-sec">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px">
+      <div>
+        <div class="section-label">学习路径</div>
+        <h2 class="section-title">7 天掌握 Kollab</h2>
+      </div>
+      <button class="btn-outline" onclick="resetLP()" style="font-size:0.8rem;padding:8px 16px">重置进度</button>
+    </div>
+    <div class="lp-progress-wrap">
+      <div class="lp-progress-label"><span>总体进度</span><span id="lp-percent">0%</span></div>
+      <div class="lp-bar-bg"><div class="lp-bar-fill" id="lp-bar" style="width:0%"></div></div>
+    </div>
+    <div class="phases">
+      <div class="phase">
+        <div class="phase-title">第 1-2 天 · 建立感觉</div>
+        <div class="lp-task" data-id="t1" onclick="toggleTask('t1')"><div class="lp-checkbox">✓</div><div class="lp-task-label">完成第一个全栈应用构建</div></div>
+        <div class="lp-task" data-id="t2" onclick="toggleTask('t2')"><div class="lp-checkbox">✓</div><div class="lp-task-label">生成一份 PPT 并下载</div></div>
+        <div class="lp-task" data-id="t3" onclick="toggleTask('t3')"><div class="lp-checkbox">✓</div><div class="lp-task-label">连接 GitHub 账号并读取仓库</div></div>
+      </div>
+      <div class="phase">
+        <div class="phase-title">第 3-4 天 · 掌握核心工具</div>
+        <div class="lp-task" data-id="t4" onclick="toggleTask('t4')"><div class="lp-checkbox">✓</div><div class="lp-task-label">上传文件并让 AI 处理它</div></div>
+        <div class="lp-task" data-id="t5" onclick="toggleTask('t5')"><div class="lp-checkbox">✓</div><div class="lp-task-label">使用深度研究生成报告</div></div>
+        <div class="lp-task" data-id="t6" onclick="toggleTask('t6')"><div class="lp-checkbox">✓</div><div class="lp-task-label">用 nano-banana-2 生成图片</div></div>
+      </div>
+      <div class="phase">
+        <div class="phase-title">第 5-6 天 · 构建第一个项目</div>
+        <div class="lp-task" data-id="t7" onclick="toggleTask('t7')"><div class="lp-checkbox">✓</div><div class="lp-task-label">把一个真实需求交给 Kollab 完成</div></div>
+        <div class="lp-task" data-id="t8" onclick="toggleTask('t8')"><div class="lp-checkbox">✓</div><div class="lp-task-label">迭代优化项目至少 3 轮</div></div>
+        <div class="lp-task" data-id="t9" onclick="toggleTask('t9')"><div class="lp-checkbox">✓</div><div class="lp-task-label">推送代码到 GitHub</div></div>
+      </div>
+      <div class="phase">
+        <div class="phase-title">第 7 天 · 高效工作流</div>
+        <div class="lp-task" data-id="t10" onclick="toggleTask('t10')"><div class="lp-checkbox">✓</div><div class="lp-task-label">收藏 3 个常用提示词</div></div>
+        <div class="lp-task" data-id="t11" onclick="toggleTask('t11')"><div class="lp-checkbox">✓</div><div class="lp-task-label">设置一个定时任务</div></div>
+        <div class="lp-task" data-id="t12" onclick="toggleTask('t12')"><div class="lp-checkbox">✓</div><div class="lp-task-label">创建一个自定义技能</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="sec">
+  <div class="section-label">常见问题</div>
+  <h2 class="section-title">你可能想问的</h2>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Kollab 和 ChatGPT 有什么区别？</span><span class="faq-arrow">▼</span></div><div class="faq-a">ChatGPT 是对话 AI，Kollab 是能实际执行任务的 AI Agent 平台。Kollab 可以真实地写代码并部署、读取你的 GitHub 仓库、处理你上传的文件、联网搜索——而不只是给你文字回答。</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>生成的文件在哪里下载？</span><span class="faq-arrow">▼</span></div><div class="faq-a">Kollab 会把所有用户面向的文件上传到 S3，并在对话中给你一个下载链接。链接有效期 24 小时，文件会在平台内持久保存。点击链接直接下载即可。</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>部署的应用能用多久？</span><span class="faq-arrow">▼</span></div><div class="faq-a">Elastic Beanstalk 环境是临时的，约 24 小时后会被清理。但 Kollab 会同时给你源码的 ZIP 下载链接，你可以随时重新部署到自己的服务器或继续在 Kollab 里重新部署。</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>我的数据安全吗？</span><span class="faq-arrow">▼</span></div><div class="faq-a">上传的文件存储在隔离的工作区，每个对话有独立的 S3 空间。Kollab 不会把你的文件用于模型训练，也不会在不同用户之间共享数据。GitHub 等集成通过 OAuth 授权，你可以随时撤销。</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>如何连接 GitHub/Notion 等外部工具？</span><span class="faq-arrow">▼</span></div><div class="faq-a">在 Kollab 工作区的「MCP 服务器」设置里，可以添加 GitHub、Notion、飞书、企业微信等连接器。连接后在对话中直接说「读取我的 GitHub 仓库 XXX」即可操作。</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>可以让 AI 记住我的偏好吗？</span><span class="faq-arrow">▼</span></div><div class="faq-a">可以，直接说「记住我的 XXX 偏好」或「以后都用 XXX 风格」，AI 会把它存入持久化的工作区记忆（MEMORY.md），跨会话生效。</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div id="cta">
+  <div class="section-label">立即行动</div>
+  <h2 class="section-title" style="max-width:600px;margin:0 auto 16px">把下一个任务交给 Kollab</h2>
+  <p class="section-desc" style="margin:0 auto 32px">从一个真实的需求开始，感受 AI Agent 的效率差距。</p>
+  <div class="cta-btns">
+    <button class="btn-primary" onclick="openTrial()">打开提示词试炼场</button>
+    <button class="btn-outline" onclick="scrollTo('learning-path')">开始 7 天学习路径</button>
+  </div>
+</div>
+
+<footer><p>Kollab 实用手册 &middot; 由 Kollab AI Agent 构建 &middot; 2026</p></footer>
+
+<!-- SEARCH MODAL -->
+<div id="search-modal" class="modal-backdrop" onclick="closeIfBackdrop(event,'search-modal',closeSearch)">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <span>🔍</span>
+      <input id="search-input" type="text" placeholder="搜索用例、技能、技巧..." oninput="doSearch(this.value)" onkeydown="if(event.key==='Escape')closeSearch()" autocomplete="off">
+      <kbd>ESC</kbd>
+    </div>
+    <div id="search-results"></div>
+  </div>
+</div>
+
+<!-- TRIAL MODAL -->
+<div id="trial-modal" class="modal-backdrop" onclick="closeIfBackdrop(event,'trial-modal',closeTrial)">
+  <div class="trial-modal">
+    <div class="modal-header"><h3 style="font-size:1.2rem;font-weight:800">提示词试炼场</h3><button class="modal-close" onclick="closeTrial()">✕</button></div>
+    <p style="font-size:0.85rem;color:var(--text2);margin-bottom:18px">选择场景，编辑提示词，复制后直接用。</p>
+    <div class="scenario-tabs">
+      <button class="scenario-tab active" onclick="switchScenario(this,'s1')">全栈开发</button>
+      <button class="scenario-tab" onclick="switchScenario(this,'s2')">文件处理</button>
+      <button class="scenario-tab" onclick="switchScenario(this,'s3')">深度研究</button>
+      <button class="scenario-tab" onclick="switchScenario(this,'s4')">PPT 生成</button>
+      <button class="scenario-tab" onclick="switchScenario(this,'s5')">图片生成</button>
+    </div>
+    <div id="s1" class="scenario-content active">
+      <div class="sc-label">提示词模板</div>
+      <textarea class="sc-prompt">帮我构建一个 [项目名称] 的 Web 应用。
+技术栈：Flask 后端 + React 前端 + SQLite 数据库
+核心功能：
+1. 用户可以 [功能1]
+2. 支持 [功能2]
+3. 界面风格：简约现代，深色主题
+
+完成后给我：公网 URL + 源码下载链接。</textarea>
+      <div class="sc-meta">预期输出：完整项目代码 + 部署到 AWS EB 的公网链接 + S3 源码 ZIP 下载</div>
+      <div class="sc-actions"><button class="btn-copy-prompt" onclick="copyPrompt('s1')">复制提示词</button></div>
+    </div>
+    <div id="s2" class="scenario-content">
+      <div class="sc-label">提示词模板</div>
+      <textarea class="sc-prompt">（上传文件后使用）
+
+处理这份 [文件类型] 文件：
+1. 提取 [关键数据/字段]
+2. 整理成 [表格/列表/结构] 格式
+3. 输出为 [Excel/PDF/Word] 文件
+4. 附上一份摘要说明主要发现
+
+文件已上传，请开始处理。</textarea>
+      <div class="sc-meta">预期输出：处理后的结构化文件 + 摘要说明 + S3 下载链接</div>
+      <div class="sc-actions"><button class="btn-copy-prompt" onclick="copyPrompt('s2')">复制提示词</button></div>
+    </div>
+    <div id="s3" class="scenario-content">
+      <div class="sc-label">提示词模板</div>
+      <textarea class="sc-prompt">对以下课题进行深度研究：
+主题：[研究主题]
+重点关注：
+- [方向1]
+- [方向2]
+- [方向3]
+
+要求：
+- 多轮搜索，至少 10 个信息源
+- 交叉验证关键数据
+- 输出带引用的 Markdown 报告
+- 最后附参考文献列表</textarea>
+      <div class="sc-meta">预期输出：结构化研究报告，含数据、引用、分析结论</div>
+      <div class="sc-actions"><button class="btn-copy-prompt" onclick="copyPrompt('s3')">复制提示词</button></div>
+    </div>
+    <div id="s4" class="scenario-content">
+      <div class="sc-label">提示词模板</div>
+      <textarea class="sc-prompt">生成一份关于 [主题] 的专业 PPT：
+页数：[10-15] 页
+风格：大厂简约风（深色背景，蓝色强调色）
+内容要求：
+- 第1页：封面（主题 + 副标题）
+- 第2页：目录/概览
+- 中间页：[核心内容]
+- 倒数第2页：总结与关键数据
+- 最后页：致谢/联系方式
+
+生成 .pptx 文件并提供下载链接。</textarea>
+      <div class="sc-meta">预期输出：完整 .pptx 文件 + S3 下载链接（约 5-10 分钟）</div>
+      <div class="sc-actions"><button class="btn-copy-prompt" onclick="copyPrompt('s4')">复制提示词</button></div>
+    </div>
+    <div id="s5" class="scenario-content">
+      <div class="sc-label">提示词模板</div>
+      <textarea class="sc-prompt">帮我生成一张图片：
+主体：[描述主体]
+场景：[场景描述]
+风格：[艺术风格]
+色调：[主色调]
+特殊要求：[任何特别说明]
+
+生成 2 张供选择，上传到 S3 给我链接。</textarea>
+      <div class="sc-meta">预期输出：2 张高质量图片（Gemini 生成）+ S3 链接，有效期 7 天</div>
+      <div class="sc-actions"><button class="btn-copy-prompt" onclick="copyPrompt('s5')">复制提示词</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div id="detail-modal" class="modal-backdrop" onclick="closeIfBackdrop(event,'detail-modal',closeDetail)">
+  <div class="detail-modal">
+    <div class="modal-header"><h3 id="detail-title" style="font-size:1.2rem;font-weight:800"></h3><button class="modal-close" onclick="closeDetail()">✕</button></div>
+    <div id="detail-body"></div>
+  </div>
+</div>
+
+<!-- FAVS MODAL -->
+<div id="favs-modal" class="modal-backdrop" onclick="closeIfBackdrop(event,'favs-modal',closeFavs)">
+  <div class="favs-modal">
+    <div class="modal-header"><h3 style="font-size:1.2rem;font-weight:800">⭐ 我的收藏</h3><button class="modal-close" onclick="closeFavs()">✕</button></div>
+    <div id="favs-list"></div>
+  </div>
+</div>
+
+<script>
+const UC = {
+  1:{title:"全栈应用构建",steps:[{t:"描述需求",d:"在对话框里用自然语言描述你想要的应用功能，技术栈，风格。不需要写代码。"},{t:"AI 搭建架构",d:"Kollab 自动创建项目目录、Flask 后端、前端页面、数据库模型，并安装所有依赖。"},{t:"自动测试",d:"AI 在本地运行应用，验证所有接口，发现问题自动修复，直到 HTTP 200 通过。"},{t:"一键部署",d:"使用 eb-deploy 技能自动打包上传到 AWS Elastic Beanstalk，生成公网 URL。"},{t:"获取源码",d:"AI 自动压缩源码为 ZIP，上传到 S3，给你一个 24 小时有效的下载链接。"}],prompt:"帮我构建一个任务管理 Web 应用，Flask + SQLite + 简约深色 UI，支持任务增删改查，部署到线上并给我链接。"},
+  2:{title:"GitHub 工作流管理",steps:[{t:"连接 GitHub 账号",d:"在 Kollab 工作区设置里添加 GitHub MCP 连接器，完成 OAuth 授权。"},{t:"读取仓库内容",d:"告诉 AI 仓库名，它会列出文件结构、读取代码、分析项目状态。"},{t:"提交代码更改",d:"描述你要改什么，AI 写好代码后直接通过 GitHub API 提交到仓库。"},{t:"管理 Issues",d:"让 AI 创建 Issue、查看所有待办、给 Issue 添加标签和分配人。"},{t:"创建 Pull Request",d:"AI 自动创建带描述的 PR，可以让 Copilot 自动 Review，或合并到主分支。"}],prompt:"读取我的 Neonity2020/video-vault 仓库，分析主要功能模块，给我一份代码质量报告，并提出 3 个优化建议。"},
+  3:{title:"深度研究报告",steps:[{t:"设定研究课题",d:"描述你要研究的主题、需要关注的角度、报告的目标读者和用途。"},{t:"多轮网络搜索",d:"deep-research 技能自动发起多轮搜索，每轮根据新信息调整查询策略。"},{t:"交叉验证信息",d:"对关键数据和结论在多个信息源之间交叉验证，标注可信度。"},{t:"结构化报告生成",d:"AI 按照标准研究报告结构组织内容：摘要、背景、分析、结论、建议。"},{t:"引用与参考文献",d:"每个重要论点都附上来源链接，最后生成完整参考文献列表。"}],prompt:"对「2025年 AI Agent 在企业自动化中的应用现状」进行深度研究，输出带引用的 Markdown 报告，至少 2000 字。"},
+  4:{title:"专业 PPT 生成",steps:[{t:"描述 PPT 需求",d:"说明主题、页数、风格（简约/商务/科技感）、是否需要数据图表。"},{t:"内容规划",d:"AI 先设计幻灯片大纲：封面、目录、内容页、总结页的结构。"},{t:"逐页生成",d:"使用 pptx 技能逐页生成内容，处理文字排版、配色方案、布局设计。"},{t:"添加视觉元素",d:"数据表格、折线图/柱状图、图标等视觉元素自动生成并嵌入。"},{t:"输出下载",d:"生成 .pptx 文件，上传 S3，给你下载链接，直接用 PowerPoint 打开。"}],prompt:"生成一份「AI 发展历程」的 PPT，10 页，大厂简约风，深色背景蓝色强调色，包含时间轴和关键事件卡片。"},
+  5:{title:"文件处理与转换",steps:[{t:"上传文件",d:"通过对话框上传 PDF、Excel、Word、CSV 等格式，AI 通过 s3-file 技能读取内容。"},{t:"描述处理需求",d:"告诉 AI 你需要提取什么、转换成什么格式、按什么规则处理数据。"},{t:"AI 执行处理",d:"AI 用 Python 脚本处理文件内容，清洗数据、提取信息、重新格式化。"},{t:"生成输出文件",d:"根据需求生成 Excel/PDF/Word/CSV 输出文件，保持专业格式。"},{t:"获取下载链接",d:"处理完成的文件上传到 S3，你收到带过期时间的下载链接。"}],prompt:"（上传 PDF 财报）提取所有年度营收和利润数据，整理成 Excel 表格，再生成一份 5 页的图文分析报告。"},
+  6:{title:"AI 图像生成",steps:[{t:"描述图像需求",d:"用文字描述主体、场景、风格、色调。描述越详细，生成效果越精准。"},{t:"nano-banana-2 执行",d:"AI 调用 nano-banana-2 技能，通过 Google Gemini 模型生成图像。"},{t:"默认生成多张",d:"通常生成 2 张供选择，每张尺寸和构图略有差异。"},{t:"迭代调整",d:"不满意可以直接说「调整风格」「加强对比度」「改变场景」，重新生成。"},{t:"下载与使用",d:"图片上传到 S3，链接有效期 7 天，支持直接在聊天中预览。"}],prompt:"生成一张赛博朋克风格的图片：一个穿着发光战甲的男人站在未来城市高楼顶，蓝紫色霓虹光效，电影感构图。"},
+  7:{title:"数据分析与可视化",steps:[{t:"上传数据集",d:"上传 CSV/Excel 数据文件，告诉 AI 你想分析什么问题或假设。"},{t:"数据探索",d:"AI 读取数据，描述数据结构、字段类型、缺失值情况、基本统计量。"},{t:"数据清洗",d:"自动处理缺失值、异常值、重复记录，告知你做了哪些处理及原因。"},{t:"生成图表",d:"用 Python matplotlib/seaborn 生成折线图、柱状图、热力图等，嵌入报告。"},{t:"输出分析报告",d:"生成包含数据洞察、可视化图表的完整报告，输出为 PDF 或 Word 格式。"}],prompt:"（上传销售数据.csv）分析过去 12 个月的销售趋势，找出增长最快的产品类别，生成含图表的分析报告。"},
+  8:{title:"自动化工作流",steps:[{t:"定义触发条件",d:"设定什么时候触发：定时（每天/每周）、事件驱动（收到消息/文件更新）等。"},{t:"编写自动化脚本",d:"AI 根据你的需求写 Python 脚本，处理数据、调用 API、发送通知。"},{t:"配置 Kollab 计时器",d:"用 kollab timer 命令创建定时任务，指定执行频率和目标动作。"},{t:"测试运行",d:"先手动触发一次验证逻辑正确，查看执行日志，确认输出符合预期。"},{t:"持续监控",d:"任务自动按计划运行，失败时通过企业微信/飞书通知你，可设置重试策略。"}],prompt:"每天早上 9 点，自动抓取 Hacker News 前 10 条新闻，整理成中文摘要，通过企业微信发送给我。"}
+};
+
+const SEARCH_INDEX = [
+  {icon:"💻",title:"全栈应用构建",desc:"从需求到部署的完整流程",section:"use-cases",ucid:1},
+  {icon:"🔗",title:"GitHub 工作流管理",desc:"读仓库、提交代码、管理 PR",section:"use-cases",ucid:2},
+  {icon:"🔍",title:"深度研究报告",desc:"多轮搜索生成带引用的报告",section:"use-cases",ucid:3},
+  {icon:"📑",title:"专业 PPT 生成",desc:"一句话生成完整演示文稿",section:"use-cases",ucid:4},
+  {icon:"📄",title:"文件处理与转换",desc:"PDF/Excel/Word 批量处理",section:"use-cases",ucid:5},
+  {icon:"🖼️",title:"AI 图像生成",desc:"Gemini 驱动的文字生图",section:"use-cases",ucid:6},
+  {icon:"📊",title:"数据分析与可视化",desc:"数据清洗、图表、分析报告",section:"use-cases",ucid:7},
+  {icon:"⚙️",title:"自动化工作流",desc:"定时任务、无人值守执行",section:"use-cases",ucid:8},
+  {icon:"🔍",title:"web-search 技能",desc:"联网搜索与网页内容抓取",section:"skills"},
+  {icon:"🚀",title:"eb-deploy 技能",desc:"AWS Elastic Beanstalk 部署",section:"skills"},
+  {icon:"🖼️",title:"nano-banana-2 技能",desc:"Gemini 图像生成与编辑",section:"skills"},
+  {icon:"🔬",title:"deep-research 技能",desc:"多轮深度研究报告生成",section:"skills"},
+  {icon:"🎯",title:"具体描述输出格式",desc:"高效技巧：提高输出质量",section:"tips"},
+  {icon:"🔄",title:"迭代而不是重来",desc:"高效技巧：持续优化方法",section:"tips"},
+  {icon:"⭐",title:"收藏高频提示词",desc:"高效技巧：构建个人提示词库",section:"tips"},
+  {icon:"📅",title:"7 天学习路径",desc:"系统掌握 Kollab 的完整计划",section:"learning-path"},
+  {icon:"❓",title:"部署应用能用多久",desc:"FAQ：EB 环境 24 小时临时",section:"faq"},
+  {icon:"❓",title:"数据安全说明",desc:"FAQ：隔离存储，不共享数据",section:"faq"},
+  {icon:"❓",title:"如何连接 GitHub",desc:"FAQ：MCP 连接器设置方法",section:"faq"},
+  {icon:"❓",title:"让 AI 记住偏好",desc:"FAQ：持久化记忆 MEMORY.md",section:"faq"},
+  {icon:"📊",title:"效率对比数据",desc:"AI vs 手动的时间节省统计",section:"efficiency"}
+];
+
+// Reading Progress
+window.addEventListener('scroll', () => {
+  const st = document.documentElement.scrollTop;
+  const sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  document.getElementById('progress-bar').style.width = (sh > 0 ? (st/sh)*100 : 0) + '%';
+});
+
+// Smooth scroll helper
+function scrollTo(id) { document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+
+// Typing animation
+const words = ['AI Agent 操控能力','全栈开发技巧','深度研究方法','文档生成魔法','自动化工作流'];
+let wi=0,ci=0,del=false;
+function typeAnim(){
+  const el=document.getElementById('typing-text');
+  if(!el)return;
+  const w=words[wi];
+  if(!del){el.textContent=w.slice(0,++ci);if(ci===w.length){del=true;setTimeout(typeAnim,1800);return;}}
+  else{el.textContent=w.slice(0,--ci);if(ci===0){del=false;wi=(wi+1)%words.length;}}
+  setTimeout(typeAnim,del?55:95);
+}
+typeAnim();
+
+// Counter animation
+function animCounter(el){
+  const t=parseInt(el.dataset.target);let c=0;
+  const s=Math.max(1,Math.floor(t/40));
+  const timer=setInterval(()=>{c=Math.min(c+s,t);el.textContent=c;if(c>=t)clearInterval(timer);},30);
+}
+document.querySelectorAll('[data-target]').forEach(animCounter);
+
+// Fade-in
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}}),{threshold:0.06});
+document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
+
+// Theme
+function toggleTheme(){
+  const h=document.documentElement;
+  const d=h.dataset.theme==='dark';
+  h.dataset.theme=d?'light':'dark';
+  document.getElementById('theme-btn').textContent=d?'☀️':'🌙';
+  localStorage.setItem('theme',h.dataset.theme);
+}
+(()=>{const t=localStorage.getItem('theme');if(t){document.documentElement.dataset.theme=t;document.getElementById('theme-btn').textContent=t==='dark'?'🌙':'☀️';}})();
+
+// Filter tabs
+document.querySelectorAll('.filter-tab').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.filter-tab').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+    const f=this.dataset.filter;
+    document.querySelectorAll('.uc-card').forEach(c=>c.classList.toggle('hidden',f!=='all'&&c.dataset.cat!==f));
+  });
+});
+
+// Favorites
+let favs=JSON.parse(localStorage.getItem('kollab-favs')||'[]');
+function syncFavUI(){
+  const n=favs.length;
+  const badge=document.getElementById('fav-count');
+  badge.textContent=n;
+  badge.style.display=n>0?'flex':'none';
+  document.querySelectorAll('.fav-toggle').forEach(b=>{
+    const id=parseInt(b.dataset.ucid);
+    b.classList.toggle('active',favs.includes(id));
+    b.textContent=favs.includes(id)?'★':'☆';
+  });
+}
+function toggleFav(e,id){
+  e.stopPropagation();
+  const i=favs.indexOf(id);
+  if(i===-1){favs.push(id);showToast('已收藏 '+UC[id].title);}
+  else{favs.splice(i,1);showToast('已取消收藏');}
+  localStorage.setItem('kollab-favs',JSON.stringify(favs));
+  syncFavUI();
+}
+syncFavUI();
+
+// Search
+let recentSearches=JSON.parse(localStorage.getItem('kollab-searches')||'[]');
+function openSearch(){document.getElementById('search-modal').classList.add('open');setTimeout(()=>document.getElementById('search-input').focus(),80);renderSearchResults('');}
+function closeSearch(){document.getElementById('search-modal').classList.remove('open');document.getElementById('search-input').value='';}
+document.addEventListener('keydown',e=>{if(e.key==='/'&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();openSearch();}});
+function doSearch(q){renderSearchResults(q.trim());}
+function renderSearchResults(q){
+  const c=document.getElementById('search-results');
+  if(!q){
+    if(!recentSearches.length){c.innerHTML='<div class="search-empty">输入关键词搜索用例、技能、技巧...</div>';return;}
+    c.innerHTML='<div class="search-section-label">最近搜索</div>'+recentSearches.slice(0,5).map(s=>`<div class="search-result" onclick="executeSearch('${s}')"><div class="search-result-icon">🕐</div><div><div class="sr-title">${s}</div></div></div>`).join('');
+    return;
+  }
+  const res=SEARCH_INDEX.filter(x=>x.title.includes(q)||x.desc.includes(q));
+  if(!res.length){c.innerHTML='<div class="search-empty">没有找到相关内容，换个关键词试试</div>';return;}
+  c.innerHTML=res.map(r=>`<div class="search-result" onclick="goSection('${r.section}',${r.ucid||0},'${q}')"><div class="search-result-icon">${r.icon}</div><div><div class="sr-title">${r.title}</div><div class="sr-desc">${r.desc}</div></div></div>`).join('');
+}
+function executeSearch(q){document.getElementById('search-input').value=q;renderSearchResults(q);}
+function goSection(sec,ucid,q){
+  if(q&&!recentSearches.includes(q)){recentSearches.unshift(q);recentSearches=recentSearches.slice(0,6);localStorage.setItem('kollab-searches',JSON.stringify(recentSearches));}
+  closeSearch();
+  document.getElementById(sec).scrollIntoView({behavior:'smooth'});
+  if(ucid)setTimeout(()=>openDetail(ucid),600);
+}
+
+// Trial
+function openTrial(){document.getElementById('trial-modal').classList.add('open');}
+function closeTrial(){document.getElementById('trial-modal').classList.remove('open');}
+function switchScenario(btn,id){
+  document.querySelectorAll('.scenario-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.scenario-content').forEach(c=>c.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function copyPrompt(id){
+  const txt=document.querySelector('#'+id+' .sc-prompt').value;
+  navigator.clipboard.writeText(txt).then(()=>showToast('提示词已复制到剪贴板！'));
+}
+
+// Detail modal
+function openDetail(id){
+  const uc=UC[id];
+  document.getElementById('detail-title').textContent=uc.title;
+  document.getElementById('detail-body').innerHTML=`
+    <p style="font-size:0.85rem;color:var(--text2);margin-bottom:16px">完整执行流程，共 ${uc.steps.length} 步</p>
+    <div class="detail-steps">${uc.steps.map((s,i)=>`<div class="detail-step"><div class="detail-step-num">${i+1}</div><div><div class="detail-step-title">${s.t}</div><div class="detail-step-desc">${s.d}</div></div></div>`).join('')}</div>
+    <div style="margin-top:24px;padding:16px;background:var(--card-bg);border-radius:10px;border:1px solid var(--border)">
+      <div style="font-size:0.72rem;font-weight:700;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em">推荐提示词</div>
+      <div style="font-size:0.85rem;color:var(--text2);line-height:1.6;white-space:pre-wrap">${uc.prompt}</div>
+      <button style="margin-top:10px;padding:6px 14px;border-radius:7px;background:var(--accent);color:#fff;font-size:0.8rem;font-weight:600;cursor:pointer" onclick="navigator.clipboard.writeText(UC[${id}].prompt).then(()=>showToast('提示词已复制！'))">复制提示词</button>
+    </div>`;
+  document.getElementById('detail-modal').classList.add('open');
+}
+function closeDetail(){document.getElementById('detail-modal').classList.remove('open');}
+
+// Favs modal
+function openFavs(){
+  const c=document.getElementById('favs-list');
+  if(!favs.length){c.innerHTML='<div class="favs-empty">还没有收藏，点击用例卡片右下角的 ☆ 添加</div>';return;}
+  c.innerHTML=favs.map(id=>`<div class="fav-item"><div><div class="fav-item-title">${UC[id].title}</div><div class="fav-item-desc">点击查看完整指南</div></div><div style="display:flex;gap:8px"><button style="padding:5px 10px;border-radius:6px;background:var(--accent);color:#fff;font-size:0.75rem;cursor:pointer" onclick="closeFavs();openDetail(${id})">查看</button><button class="fav-remove" onclick="toggleFav(event,${id});openFavs()">移除</button></div></div>`).join('');
+  document.getElementById('favs-modal').classList.add('open');
+}
+function closeFavs(){document.getElementById('favs-modal').classList.remove('open');}
+
+// Close on backdrop click
+function closeIfBackdrop(e,id,fn){if(e.target===document.getElementById(id))fn();}
+
+// Learning path
+let lpDone=JSON.parse(localStorage.getItem('kollab-lp')||'[]');
+function toggleTask(id){
+  const i=lpDone.indexOf(id);
+  if(i===-1)lpDone.push(id);else lpDone.splice(i,1);
+  localStorage.setItem('kollab-lp',JSON.stringify(lpDone));
+  renderLP();
+}
+function resetLP(){lpDone=[];localStorage.setItem('kollab-lp','[]');renderLP();showToast('学习进度已重置');}
+function renderLP(){
+  const all=document.querySelectorAll('.lp-task');
+  all.forEach(t=>t.classList.toggle('done',lpDone.includes(t.dataset.id)));
+  const pct=all.length>0?Math.round((lpDone.length/all.length)*100):0;
+  document.getElementById('lp-bar').style.width=pct+'%';
+  document.getElementById('lp-percent').textContent=pct+'%';
+}
+renderLP();
+
+// FAQ
+function toggleFaq(btn){
+  const item=btn.parentElement;
+  const was=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open'));
+  if(!was)item.classList.add('open');
+}
+
+// Copy
+function copyText(btn,text){
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig=btn.textContent;btn.textContent='已复制';
+    showToast('已复制到剪贴板！');
+    setTimeout(()=>btn.textContent=orig,2000);
+  });
+}
+
+// Toast
+function showToast(msg){
+  const t=document.createElement('div');t.className='toast';t.textContent=msg;
+  document.getElementById('toast-container').appendChild(t);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>t.classList.add('show')));
+  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),350);},2500);
+}
+
+// 3D card tilt
+document.querySelectorAll('.uc-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=((e.clientX-r.left)/r.width-0.5)*10;
+    const y=((e.clientY-r.top)/r.height-0.5)*-10;
+    card.style.transform=`perspective(600px) rotateY(${x}deg) rotateX(${y}deg) translateZ(4px)`;
+  });
+  card.addEventListener('mouseleave',()=>card.style.transform='');
+});
+</script>
+</body>
+</html>
