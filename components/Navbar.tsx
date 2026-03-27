@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 const navLinks = [
   { href: "#overview", label: "平台概览", highlight: false },
@@ -35,9 +36,13 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-14">
           <a href="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-blue-500/20 border border-blue-500/40 flex items-center justify-center">
-              <Zap className="w-4 h-4 text-blue-400" />
-            </div>
+            <Image
+              src="/android-chrome-192x192.png"
+              alt="Kollab"
+              width={28}
+              height={28}
+              className="rounded-lg"
+            />
             <span className="font-semibold text-sm text-slate-200">Kollab 手册</span>
           </a>
           <div className="hidden md:flex items-center gap-1">
