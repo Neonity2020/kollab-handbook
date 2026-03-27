@@ -42,6 +42,7 @@ export default function Navbar() {
               width={28}
               height={28}
               className="rounded-lg"
+              priority
             />
             <span className="font-semibold text-sm text-slate-200">Kollab 手册</span>
           </a>
