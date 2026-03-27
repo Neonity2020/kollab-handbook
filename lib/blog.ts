@@ -2535,7 +2535,7 @@ BLOCKED_PATTERNS=(
   "> /etc/"
 )
 
-for pattern in "${BLOCKED_PATTERNS[@]}"; do
+for pattern in "\${BLOCKED_PATTERNS[@]}"; do
   if echo "$INPUT" | grep -qiE "$pattern"; then
     echo "⛔ 安全拦截：命令匹配危险模式 [$pattern]" >&2
     exit 1
