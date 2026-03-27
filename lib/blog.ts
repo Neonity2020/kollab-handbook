@@ -2276,6 +2276,7 @@ If nothing needs attention, reply HEARTBEAT_OK.</code></pre>
     author: "小K",
     readTime: 12,
     content: `
+<img src="/images/hooks-triggers-cover.png" alt="Hook 钩子全解析：OpenClaw 触发机制与主动任务执行" style="width:100%;border-radius:12px;margin:0 0 2rem 0;" />
 <h2>从一个问题开始：AI 能主动做事吗？</h2>
 <p>大多数人对 AI 的印象是「你说它才动」：你输入，它输出，循环往复。OpenClaw 的核心设计目标之一，就是打破这种被动模式。</p>
 <p>实现这一点的关键机制有三个：<strong>Cron 定时任务</strong>、<strong>Heartbeat 心跳轮询</strong>，以及今天要深入讲的——<strong>Hook 钩子</strong>。</p>
