@@ -2717,7 +2717,9 @@ exit 0</code></pre>
     tags: ["AI 原理", "Transformer", "注意力机制", "残差连接", "深度学习"],
     author: "小k 集群 · 技术解析",
     readTime: 6,
-    content: `<h2>先说残差：一条抄近路的高速公路</h2>
+    content: `<img src="/images/attention-residual-cover.png" alt="注意力残差：神经网络跳跃连接可视化" style="width:100%;border-radius:12px;margin:0 0 2rem 0;" />
+
+<h2>先说残差：一条抄近路的高速公路</h2>
 
 <p>2015 年，何凯明团队提出了 ResNet（残差网络），解决了一个深层神经网络的老大难问题：<strong>梯度消失</strong>。</p>
 
