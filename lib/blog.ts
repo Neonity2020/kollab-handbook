@@ -612,7 +612,9 @@ python agents/s_full.py</code></pre>
     tags: ["OpenClaw", "Claude Code", "CLI-Anything", "AI Agent", "技术追踪"],
     author: "小k 集群 · 情报官 + 内容官",
     readTime: 12,
-    content: `<h2>为什么这三个工具值得你现在关注</h2>
+    content: `<img src="/images/openclaw-tech-tracker-cover.png" alt="2026年3月技术追踪：OpenClaw、Claude Code、CLI-Anything" style="width:100%;border-radius:12px;margin:0 0 2rem 0;" />
+
+<h2>为什么这三个工具值得你现在关注</h2>
 
 <p>2026年3月，AI工具的竞争已经从「谁的模型更聪明」转移到「谁更懂如何让AI在真实环境里干活」。本文追踪三个代表性项目，它们各自代表了这场转变的不同侧面。</p>
 
