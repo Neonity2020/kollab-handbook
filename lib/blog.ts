@@ -1203,7 +1203,9 @@ cli-anything ./libreoffice --pdf</code></pre>
     tags: ["Claude Code", "Obsidian", "知识管理", "AI Agent", "工作流"],
     author: "用户投稿",
     readTime: 10,
-    content: `<h1>Claude Code + Obsidian：让你的笔记库变成可编程的智能系统</h1>
+    content: `<img src="/images/claude-code-obsidian-cover.png" alt="Claude Code + Obsidian：让笔记库变成可编程的智能系统" style="width:100%;border-radius:12px;margin:0 0 2rem 0;" />
+
+<h1>Claude Code + Obsidian：让你的笔记库变成可编程的智能系统</h1>
 <blockquote>
 <p>你的 Obsidian Vault 不只是一个静态笔记库——当 Claude Code 遇上 Obsidian CLI，它就变成了一个可以理解你、帮你思考、主动整理的智能系统。</p>
 </blockquote>
