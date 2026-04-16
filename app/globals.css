@@ -195,24 +195,45 @@ body {
 
 .prose-blog table {
   width: 100%;
-  border-collapse: collapse;
-  margin: 1.25rem 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1.5rem 0;
   font-size: 0.875rem;
+  border-radius: 0.625rem;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--card-shadow);
 }
 .prose-blog th {
-  background: var(--surface2);
-  color: var(--text-secondary);
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface2));
+  color: var(--text);
   font-weight: 600;
   text-align: left;
-  padding: 0.6rem 0.85rem;
-  border: 1px solid var(--border);
+  padding: 0.7rem 1rem;
+  border-bottom: 2px solid color-mix(in srgb, var(--accent) 20%, var(--border));
+  border-right: 1px solid var(--border);
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
 }
+.prose-blog th:last-child { border-right: none; }
 .prose-blog td {
-  color: var(--text-muted);
-  padding: 0.55rem 0.85rem;
-  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  line-height: 1.55;
+  vertical-align: top;
 }
-.prose-blog tr:nth-child(even) td { background: var(--surface2); }
+.prose-blog td:last-child { border-right: none; }
+.prose-blog tbody tr:last-child td { border-bottom: none; }
+.prose-blog tbody tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--accent) 3%, var(--surface));
+}
+.prose-blog tbody tr:hover td {
+  background: color-mix(in srgb, var(--accent) 6%, var(--surface));
+  transition: background 0.15s ease;
+}
 
 .prose-blog hr {
   border-color: var(--border);
