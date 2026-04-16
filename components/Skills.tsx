@@ -13,12 +13,12 @@ export default function Skills() {
     <section id="skills" className="py-20 px-4">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-10">
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-100 mb-3">技能生态</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100 mb-3">技能生态</h2>
           <p className="text-slate-400 max-w-xl mx-auto">这些技能预装在你的工作区，对话中直接激活。</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {skills.map((skill) => (
-            <div key={skill.name} className="flex items-start gap-3 p-4 bg-[#111827] border border-[#1f2d45] rounded-xl card-hover">
+            <div key={skill.name} className="flex items-start gap-3 p-4 bg-[var(--bg)] border border-[var(--border)] rounded-xl card-hover">
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <code className="text-xs font-mono text-blue-300 bg-blue-500/10 px-1.5 py-0.5 rounded">{skill.name}</code>
@@ -29,7 +29,7 @@ export default function Skills() {
             </div>
           ))}
         </div>
-        <div className="mt-8 p-5 bg-[#111827] border border-[#1f2d45] rounded-xl text-center">
+        <div className="mt-8 p-5 bg-[var(--bg)] border border-[var(--border)] rounded-xl text-center">
           <p className="text-sm text-slate-400">大多数技能无需手动调用。描述你的任务，AI 自动识别并激活合适的技能。</p>
           <p className="text-xs text-slate-500 mt-1">想强制使用某技能？在提示词里提到技能名即可，例如“用 deep-research 调研...”</p>
         </div>

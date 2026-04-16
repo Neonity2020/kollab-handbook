@@ -21,7 +21,7 @@ export default function BlogSection() {
               <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
               每日更新 · 技术前沿追踪
             </div>
-            <h2 className="text-2xl font-bold text-white">深度博客</h2>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">深度博客</h2>
             <p className="text-sm text-slate-400 mt-1">
               Claude Code、OpenClaw、CLI-Anything 等前沿技术深度解析
             </p>
@@ -48,7 +48,7 @@ export default function BlogSection() {
             >
               <Link
                 href={`/blog/${post.slug}/`}
-                className="group block bg-[#0d1626] border border-[#1f2d45] rounded-xl p-5 sm:p-6 hover:border-blue-500/40 hover:bg-[#111d30] transition-all duration-200"
+                className="group block bg-[var(--bg)] border border-[var(--border)] rounded-xl p-5 sm:p-6 hover:border-blue-500/40 hover:bg-[var(--bg)] transition-all duration-200"
               >
                 <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                   <div className="flex-1 min-w-0">
@@ -57,7 +57,7 @@ export default function BlogSection() {
                       <span className="text-slate-600 text-xs">·</span>
                       <span className="text-xs text-slate-500">{post.readTime} min read</span>
                     </div>
-                    <h3 className="text-base font-semibold text-slate-100 group-hover:text-blue-300 transition-colors leading-snug mb-2">
+                    <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100 group-hover:text-blue-500 dark:group-hover:text-blue-300 transition-colors leading-snug mb-2">
                       {post.title}
                     </h3>
                     <p className="text-sm text-slate-500 leading-relaxed line-clamp-2">

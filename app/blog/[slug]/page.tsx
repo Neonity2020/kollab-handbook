@@ -22,7 +22,7 @@ export default async function BlogPostPage({
     <>
       <ProgressBar />
       <Navbar />
-      <main className="min-h-screen bg-[#111827] pt-24 pb-20 px-4">
+      <main className="min-h-screen bg-[var(--bg)] pt-24 pb-20 px-4">
         <div className="max-w-2xl mx-auto">
           <Link
             href="/blog/"
@@ -45,10 +45,10 @@ export default async function BlogPostPage({
                 </span>
               ))}
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-4">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 leading-tight mb-4">
               {post!.title}
             </h1>
-            <div className="flex items-center gap-3 text-xs text-slate-400">
+            <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
               <time>{post!.date}</time>
               <span>·</span>
               <span>约 {post!.readTime} 分钟阅读</span>
@@ -58,7 +58,7 @@ export default async function BlogPostPage({
           </header>
 
           <div className="bg-blue-500/5 border border-blue-500/20 rounded-xl p-5 mb-10">
-            <p className="text-sm text-slate-300 leading-relaxed">{post!.summary}</p>
+            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{post!.summary}</p>
           </div>
 
           <article
@@ -66,7 +66,7 @@ export default async function BlogPostPage({
             dangerouslySetInnerHTML={{ __html: post!.content }}
           />
 
-          <div className="mt-16 pt-8 border-t border-[#334155]">
+          <div className="mt-16 pt-8 border-t border-[var(--border)]">
             <Link
               href="/blog/"
               className="inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-blue-300 transition-colors"

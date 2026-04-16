@@ -43,7 +43,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
           <span className="text-3xl">{page.icon}</span>
           <div>
             <p className="text-[10px] uppercase tracking-widest text-slate-500">{page.category}</p>
-            <h1 className="text-2xl font-bold text-white tracking-tight">{page.title}</h1>
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-900 dark:text-white tracking-tight">{page.title}</h1>
           </div>
         </div>
         <p className="text-slate-400 text-sm leading-relaxed">{page.description}</p>
@@ -57,7 +57,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
             return (
               <Tag
                 key={i}
-                className={`font-bold text-white tracking-tight ${
+                className={`font-bold text-slate-900 dark:text-slate-900 dark:text-white tracking-tight ${
                   block.level === 2 ? "text-lg mt-8 mb-3" : "text-base mt-6 mb-2"
                 }`}
               >
@@ -104,8 +104,8 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
 
           if (block.type === "code") {
             return (
-              <div key={i} className="rounded-xl overflow-hidden border border-[#334155]">
-                <div className="bg-[#1e293b] px-3 py-1.5 flex items-center justify-between">
+              <div key={i} className="rounded-xl overflow-hidden border border-[var(--border)]">
+                <div className="bg-[var(--surface)] px-3 py-1.5 flex items-center justify-between">
                   <span className="text-[10px] text-slate-400 uppercase tracking-wide">
                     {block.lang || "text"}
                   </span>
@@ -123,9 +123,9 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
                 {block.cards?.map((card, j) => (
                   <div
                     key={j}
-                    className="bg-[#1e293b] border border-[#334155] rounded-xl p-4"
+                    className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4"
                   >
-                    <h4 className="text-sm font-semibold text-slate-200 mb-1.5">{card.title}</h4>
+                    <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">{card.title}</h4>
                     <p className="text-xs text-slate-400 leading-relaxed">{card.desc}</p>
                   </div>
                 ))}
@@ -138,11 +138,11 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
       </div>
 
       {/* Prev / Next navigation */}
-      <div className="mt-12 pt-6 border-t border-[#1e293b] flex items-center justify-between gap-4">
+      <div className="mt-12 pt-6 border-t border-[var(--border)] flex items-center justify-between gap-4">
         {prev ? (
           <Link
             href={`/docs/${prev.slug}/`}
-            className="group flex items-center gap-2 text-sm text-slate-400 hover:text-slate-200 transition-colors min-w-0"
+            className="group flex items-center gap-2 text-sm text-slate-400 hover:text-slate-700 dark:text-slate-200 transition-colors min-w-0"
           >
             <ChevronLeft className="w-4 h-4 shrink-0 group-hover:-translate-x-0.5 transition-transform" />
             <span className="truncate">{prev.title}</span>
@@ -153,7 +153,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
         {next ? (
           <Link
             href={`/docs/${next.slug}/`}
-            className="group flex items-center gap-2 text-sm text-slate-400 hover:text-slate-200 transition-colors min-w-0 text-right"
+            className="group flex items-center gap-2 text-sm text-slate-400 hover:text-slate-700 dark:text-slate-200 transition-colors min-w-0 text-right"
           >
             <span className="truncate">{next.title}</span>
             <ChevronRight className="w-4 h-4 shrink-0 group-hover:translate-x-0.5 transition-transform" />

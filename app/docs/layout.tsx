@@ -25,7 +25,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
             <div className="sticky top-20">
               <Link
                 href="/docs/"
-                className="flex items-center gap-2 text-slate-400 hover:text-slate-200 transition-colors mb-6 text-sm"
+                className="flex items-center gap-2 text-slate-400 hover:text-slate-700 dark:text-slate-200 transition-colors mb-6 text-sm"
               >
                 <BookOpen className="w-4 h-4" />
                 文档首页
@@ -45,7 +45,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
                           className={`flex items-center gap-2 px-2.5 py-1.5 rounded-md text-sm transition-all ${
                             active
                               ? "bg-blue-500/15 text-blue-300 font-medium"
-                              : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
+                              : "text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-white/5"
                           }`}
                         >
                           <span className="text-base leading-none">{s.icon}</span>
@@ -60,7 +60,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
           </aside>
 
           {/* Main content */}
-          <main className="flex-1 min-w-0 py-8 pl-0 md:pl-8 border-l border-[#1e293b]">
+          <main className="flex-1 min-w-0 py-8 pl-0 md:pl-8 border-l border-[var(--border)]">
             {children}
           </main>
         </div>

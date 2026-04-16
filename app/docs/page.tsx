@@ -22,7 +22,7 @@ export default function DocsIndex() {
           <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
           Kollab 使用文档
         </div>
-        <h1 className="text-3xl font-bold text-white mb-3 tracking-tight">
+        <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-900 dark:text-white mb-3 tracking-tight">
           Kollab 实用手册
         </h1>
         <p className="text-slate-400 text-sm leading-relaxed">
@@ -41,13 +41,13 @@ export default function DocsIndex() {
               <Link
                 key={s.slug}
                 href={`/docs/${s.slug}/`}
-                className="group block bg-[#1e293b] border border-[#334155] rounded-xl p-4 hover:border-blue-500/40 hover:bg-[#172033] transition-all duration-200"
+                className="group block bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4 hover:border-blue-500/40 hover:bg-[#172033] transition-all duration-200"
               >
                 <div className="flex items-start gap-3">
                   <span className="text-2xl leading-none mt-0.5">{s.icon}</span>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <h3 className="text-sm font-semibold text-slate-200 group-hover:text-white transition-colors">
+                      <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:text-slate-900 dark:text-white transition-colors">
                         {s.title}
                       </h3>
                       <ArrowRight className="w-3 h-3 text-slate-500 group-hover:text-blue-400 transition-all group-hover:translate-x-0.5" />
@@ -63,7 +63,7 @@ export default function DocsIndex() {
         </div>
       ))}
 
-      <div className="mt-4 pt-8 border-t border-[#1e293b]">
+      <div className="mt-4 pt-8 border-t border-[var(--border)]">
         <p className="text-xs text-slate-500 text-center">
           还有问题？{" "}
           <Link href="/#faq" className="text-blue-400 hover:text-blue-300 transition-colors">

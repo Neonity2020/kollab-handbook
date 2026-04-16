@@ -25,31 +25,31 @@ export default function QuickStart() {
   };
 
   return (
-    <section id="quickstart" className="py-20 px-4 bg-[#0d1424]">
+    <section id="quickstart" className="py-20 px-4 bg-[var(--bg)]">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-100 mb-3">三步快速入门</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100 mb-3">三步快速入门</h2>
           <p className="text-slate-400 max-w-xl mx-auto">5 分钟内完成基础配置，开始你的第一个任务。</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
           {steps.map((step, i) => (
             <div key={step.num} className="relative">
-              {i < steps.length - 1 && <div className="hidden md:block absolute top-6 left-full w-full h-px bg-[#1f2d45] -ml-4 z-0" />}
-              <div className="relative bg-[#111827] border border-[#1f2d45] rounded-xl p-5 card-hover z-10">
+              {i < steps.length - 1 && <div className="hidden md:block absolute top-6 left-full w-full h-px bg-[var(--surface)] -ml-4 z-0" />}
+              <div className="relative bg-[var(--bg)] border border-[var(--border)] rounded-xl p-5 card-hover z-10">
                 <div className="text-3xl font-bold text-blue-500/20 mb-3 font-mono">{step.num}</div>
-                <h3 className="text-sm font-semibold text-slate-200 mb-2">{step.title}</h3>
+                <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">{step.title}</h3>
                 <p className="text-xs text-slate-500 leading-relaxed">{step.desc}</p>
                 {step.tip && <div className="mt-3 p-2.5 bg-blue-500/5 border border-blue-500/15 rounded-lg"><p className="text-xs text-blue-400">{step.tip}</p></div>}
               </div>
             </div>
           ))}
         </div>
-        <div className="bg-[#111827] border border-[#1f2d45] rounded-xl overflow-hidden">
-          <div className="flex items-center gap-2 px-5 py-3 border-b border-[#1f2d45] bg-[#0d1424]/50">
+        <div className="bg-[var(--bg)] border border-[var(--border)] rounded-xl overflow-hidden">
+          <div className="flex items-center gap-2 px-5 py-3 border-b border-[var(--border)] bg-[var(--bg)]/50">
             <Terminal className="w-4 h-4 text-slate-500" />
             <span className="text-xs text-slate-400 font-medium">示例提示词</span>
           </div>
-          <div className="flex border-b border-[#1f2d45]">
+          <div className="flex border-b border-[var(--border)]">
             {examplePrompts.map((p, i) => (
               <button key={p.label} onClick={() => setActivePrompt(i)} className={`px-4 py-2.5 text-xs font-medium transition-all ${activePrompt === i ? "text-blue-400 border-b-2 border-blue-500" : "text-slate-500 hover:text-slate-300"}`}>{p.label}</button>
             ))}
@@ -57,7 +57,7 @@ export default function QuickStart() {
           <div className="p-5">
             <div className="flex items-start justify-between gap-4">
               <pre className="text-xs text-slate-400 whitespace-pre-wrap leading-relaxed flex-1">{examplePrompts[activePrompt].prompt}</pre>
-              <button onClick={() => copy(examplePrompts[activePrompt].prompt, activePrompt)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-[#1a2236] border border-[#1f2d45] text-slate-400 hover:text-slate-200 rounded-lg transition-all flex-shrink-0">
+              <button onClick={() => copy(examplePrompts[activePrompt].prompt, activePrompt)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-[var(--surface)] border border-[var(--border)] text-slate-400 hover:text-slate-700 dark:text-slate-200 rounded-lg transition-all flex-shrink-0">
                 {copiedIdx === activePrompt ? (<><Check className="w-3 h-3 text-emerald-400" /><span className="text-emerald-400">已复制</span></>) : (<><Copy className="w-3 h-3" />复制</>)}
               </button>
             </div>
