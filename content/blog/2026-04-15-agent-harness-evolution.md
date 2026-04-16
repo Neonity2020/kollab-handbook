@@ -14,6 +14,8 @@ tags:
 author: "小k 集群 · 技术解析"
 readTime: 12
 ---
+<img src="/images/agent-harness-evolution-cover.png" alt="Agent Harness 架构分层示意图" style="width:100%;border-radius:12px;margin:0 0 2rem 0;" />
+
 <p style="color:#999;font-size:0.85rem;margin-bottom:1.5rem;">发布于 2026年4月15日 | Kollab 技术博客 · AI架构系列</p>
 
 <p>如果你把过去一年 AI Agent 领域的进展拆开来看，会发现一件有趣的事：真正决定 Agent 能力上限的，不是底层模型，而是包裹在模型外面的那一层——<strong>Agent Harness（代理骨架）</strong>。</p>
@@ -85,6 +87,8 @@ readTime: 12
 
 <p>四层叠加，构成了一个真正意义上的经验积累系统。这与第二代的被动记忆有根本区别：第二代的记忆是存储，第三代的经验是提炼。</p>
 
+<img src="/images/agent-harness-self-loop.png" alt="Hermes Agent 自我进化闭环：四个嵌套层次的经验积累系统" style="width:60%;display:block;margin:2rem auto;border-radius:12px;" />
+
 <h2>三代设计维度对比</h2>
 
 <table style="width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.9rem;">
@@ -141,6 +145,8 @@ readTime: 12
     </tr>
   </tbody>
 </table>
+
+<img src="/images/agent-harness-three-generations.png" alt="三代 Agent Harness 演进：Claude Code → OpenClaw → Hermes Agent" style="width:100%;border-radius:12px;margin:2rem 0;" />
 
 <h2>每次跃迁的本质是什么？</h2>
 
