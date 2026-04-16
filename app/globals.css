@@ -33,17 +33,17 @@
   --scroll-thumb: #cbd5e1;
   --selection-bg: rgba(37, 99, 235, 0.15);
 
-  /* Table — light mode */
-  --table-head-bg:     #f1f5f9;
-  --table-head-text:   #475569;
-  --table-head-border: #d1d5db;
+  /* Table — light mode (stronger contrast for readability) */
+  --table-head-bg:     #e2e8f0;
+  --table-head-text:   #1e293b;
+  --table-head-border: #cbd5e1;
   --table-row-odd:     #ffffff;
-  --table-row-even:    #f8fafc;
+  --table-row-even:    #f1f5f9;
   --table-row-hover:   #eff6ff;
   --table-cell-text:   #334155;
-  --table-label-text:  #1e293b;
-  --table-border:      #e2e8f0;
-  --table-shadow:      0 1px 4px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --table-label-text:  #0f172a;
+  --table-border:      #cbd5e1;
+  --table-shadow:      0 1px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
 /* ─── Dark mode ──────────────────────────────────────────────────────── */
