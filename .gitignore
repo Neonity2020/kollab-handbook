@@ -10,3 +10,6 @@ npm-debug.log*
 *.tsbuildinfo
 next-env.d.ts
 /.source
+
+# Blog backup file (only needed locally)
+lib/blog.ts.bak
