@@ -29,12 +29,12 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
   return (
     <div className="max-w-2xl">
       {/* Breadcrumb */}
-      <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-6">
-        <Link href="/docs/" className="hover:text-slate-300 transition-colors">
+      <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 mb-6">
+        <Link href="/docs/" className="hover:text-[var(--text)] transition-colors">
           文档
         </Link>
         <ChevronRight className="w-3 h-3" />
-        <span className="text-slate-400">{page.title}</span>
+        <span>{page.title}</span>
       </div>
 
       {/* Header */}
@@ -42,11 +42,11 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
         <div className="flex items-center gap-3 mb-3">
           <span className="text-3xl">{page.icon}</span>
           <div>
-            <p className="text-[10px] uppercase tracking-widest text-slate-500">{page.category}</p>
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-900 dark:text-white tracking-tight">{page.title}</h1>
+            <p className="text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-500">{page.category}</p>
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">{page.title}</h1>
           </div>
         </div>
-        <p className="text-slate-400 text-sm leading-relaxed">{page.description}</p>
+        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{page.description}</p>
       </div>
 
       {/* Content */}
@@ -57,7 +57,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
             return (
               <Tag
                 key={i}
-                className={`font-bold text-slate-900 dark:text-slate-900 dark:text-white tracking-tight ${
+                className={`font-bold text-slate-900 dark:text-white tracking-tight ${
                   block.level === 2 ? "text-lg mt-8 mb-3" : "text-base mt-6 mb-2"
                 }`}
               >
@@ -68,7 +68,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
 
           if (block.type === "paragraph") {
             return (
-              <p key={i} className="text-slate-300 text-sm leading-relaxed">
+              <p key={i} className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                 {block.text}
               </p>
             );
@@ -79,10 +79,10 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
               <ol key={i} className="space-y-3">
                 {block.items?.map((item, j) => (
                   <li key={j} className="flex items-start gap-3">
-                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-400 text-xs flex items-center justify-center font-medium mt-0.5">
+                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-600 dark:text-blue-400 text-xs flex items-center justify-center font-medium mt-0.5">
                       {j + 1}
                     </span>
-                    <span className="text-sm text-slate-300 leading-relaxed">{item}</span>
+                    <span className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{item}</span>
                   </li>
                 ))}
               </ol>
@@ -93,8 +93,8 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
             return (
               <ul key={i} className="space-y-2">
                 {block.items?.map((item, j) => (
-                  <li key={j} className="flex items-start gap-2.5 text-sm text-slate-300">
-                    <span className="text-blue-400 mt-0.5 flex-shrink-0">•</span>
+                  <li key={j} className="flex items-start gap-2.5 text-sm text-slate-600 dark:text-slate-300">
+                    <span className="text-blue-500 dark:text-blue-400 mt-0.5 flex-shrink-0">•</span>
                     <span className="leading-relaxed">{item}</span>
                   </li>
                 ))}
@@ -106,11 +106,11 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
             return (
               <div key={i} className="rounded-xl overflow-hidden border border-[var(--border)]">
                 <div className="bg-[var(--surface)] px-3 py-1.5 flex items-center justify-between">
-                  <span className="text-[10px] text-slate-400 uppercase tracking-wide">
+                  <span className="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wide">
                     {block.lang || "text"}
                   </span>
                 </div>
-                <pre className="bg-[#0f172a] p-4 text-xs text-slate-300 leading-relaxed overflow-x-auto whitespace-pre-wrap">
+                <pre className="bg-[var(--surface2)] p-4 text-xs text-slate-600 dark:text-slate-300 leading-relaxed overflow-x-auto whitespace-pre-wrap">
                   {block.code}
                 </pre>
               </div>
@@ -126,7 +126,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
                     className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4"
                   >
                     <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">{card.title}</h4>
-                    <p className="text-xs text-slate-400 leading-relaxed">{card.desc}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{card.desc}</p>
                   </div>
                 ))}
               </div>
@@ -142,7 +142,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
         {prev ? (
           <Link
             href={`/docs/${prev.slug}/`}
-            className="group flex items-center gap-2 text-sm text-slate-400 hover:text-slate-700 dark:text-slate-200 transition-colors min-w-0"
+            className="group flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 hover:text-[var(--text)] transition-colors min-w-0"
           >
             <ChevronLeft className="w-4 h-4 shrink-0 group-hover:-translate-x-0.5 transition-transform" />
             <span className="truncate">{prev.title}</span>
@@ -153,7 +153,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
         {next ? (
           <Link
             href={`/docs/${next.slug}/`}
-            className="group flex items-center gap-2 text-sm text-slate-400 hover:text-slate-700 dark:text-slate-200 transition-colors min-w-0 text-right"
+            className="group flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 hover:text-[var(--text)] transition-colors min-w-0 text-right"
           >
             <span className="truncate">{next.title}</span>
             <ChevronRight className="w-4 h-4 shrink-0 group-hover:translate-x-0.5 transition-transform" />
