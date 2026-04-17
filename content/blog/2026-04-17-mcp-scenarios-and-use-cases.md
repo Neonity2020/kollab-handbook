@@ -84,53 +84,53 @@ readTime: 10
 
 <p>每个数据源对应一个 MCP Server。AI 在执行审查任务时，根据需要动态决定去哪里查什么——先拉 diff，再查规范，再看需求，最后生成意见。整个过程 AI 主动编排，不需要提前把所有信息塞进 prompt。</p>
 
-<div style="background:#1e293b;border-radius:12px;padding:1.5rem;margin:1.5rem 0;font-family:monospace;font-size:0.9rem;line-height:1.8;">
-  <p style="color:#94a3b8;margin:0 0 1rem 0;">// 架构示意</p>
-  <p style="color:#e2e8f0;margin:0;">开发者提交 PR</p>
-  <p style="color:#e2e8f0;margin:0;padding-left:1rem;">↓</p>
-  <p style="color:#e2e8f0;margin:0;">AI 代码审查 Agent（通过 MCP 连接）</p>
-  <p style="color:#e2e8f0;margin:0;padding-left:1rem;">├── <span style="color:#818cf8;">GitHub MCP Server</span>　　→ 读取 PR diff、历史 commits</p>
-  <p style="color:#e2e8f0;margin:0;padding-left:1rem;">├── <span style="color:#818cf8;">文档 MCP Server</span>　　　→ 获取团队编码规范、ADR</p>
-  <p style="color:#e2e8f0;margin:0;padding-left:1rem;">└── <span style="color:#818cf8;">项目管理 MCP Server</span>　→ 关联需求背景、验收标准</p>
-  <p style="color:#e2e8f0;margin:0;padding-left:1rem;">↓</p>
-  <p style="color:#e2e8f0;margin:0;">生成结构化审查意见 → 自动评论到 PR</p>
+<div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin:1.5rem 0;font-family:monospace;font-size:0.9rem;line-height:1.8;">
+  <p style="color:var(--text-muted);margin:0 0 1rem 0;">// 架构示意</p>
+  <p style="color:var(--text);margin:0;">开发者提交 PR</p>
+  <p style="color:var(--text);margin:0;padding-left:1rem;">↓</p>
+  <p style="color:var(--text);margin:0;">AI 代码审查 Agent（通过 MCP 连接）</p>
+  <p style="color:var(--text);margin:0;padding-left:1rem;">├── <span style="color:var(--accent);">GitHub MCP Server</span>　　→ 读取 PR diff、历史 commits</p>
+  <p style="color:var(--text);margin:0;padding-left:1rem;">├── <span style="color:var(--accent);">文档 MCP Server</span>　　　→ 获取团队编码规范、ADR</p>
+  <p style="color:var(--text);margin:0;padding-left:1rem;">└── <span style="color:var(--accent);">项目管理 MCP Server</span>　→ 关联需求背景、验收标准</p>
+  <p style="color:var(--text);margin:0;padding-left:1rem;">↓</p>
+  <p style="color:var(--text);margin:0;">生成结构化审查意见 → 自动评论到 PR</p>
 </div>
 
 <p><strong>和直接调 API 的差别在哪里？</strong></p>
 
-<table style="width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.9rem;">
+<table>
   <thead>
-    <tr style="background:#6366f1;color:white;">
-      <th style="padding:10px 12px;text-align:left;">对比项</th>
-      <th style="padding:10px 12px;text-align:left;">直接调 API</th>
-      <th style="padding:10px 12px;text-align:left;">使用 MCP</th>
+    <tr>
+      <th>对比项</th>
+      <th>直接调 API</th>
+      <th>使用 MCP</th>
     </tr>
   </thead>
   <tbody>
-    <tr style="background:#1e293b;">
-      <td style="padding:10px 12px;border-bottom:1px solid #334155;">新增数据源</td>
-      <td style="padding:10px 12px;border-bottom:1px solid #334155;">每次写新的集成代码</td>
-      <td style="padding:10px 12px;border-bottom:1px solid #334155;">挂载新的 MCP Server 即可</td>
+    <tr>
+      <td>新增数据源</td>
+      <td>每次写新的集成代码</td>
+      <td>挂载新的 MCP Server 即可</td>
     </tr>
     <tr>
-      <td style="padding:10px 12px;border-bottom:1px solid #334155;">权限管理</td>
-      <td style="padding:10px 12px;border-bottom:1px solid #334155;">分散在各处，难以统一审计</td>
-      <td style="padding:10px 12px;border-bottom:1px solid #334155;">在 MCP 层集中控制</td>
-    </tr>
-    <tr style="background:#1e293b;">
-      <td style="padding:10px 12px;border-bottom:1px solid #334155;">更换 AI 模型</td>
-      <td style="padding:10px 12px;border-bottom:1px solid #334155;">需要重新适配各数据源</td>
-      <td style="padding:10px 12px;border-bottom:1px solid #334155;">协议不变，模型透明切换</td>
+      <td>权限管理</td>
+      <td>分散在各处，难以统一审计</td>
+      <td>在 MCP 层集中控制</td>
     </tr>
     <tr>
-      <td style="padding:10px 12px;border-bottom:1px solid #334155;">能力复用</td>
-      <td style="padding:10px 12px;border-bottom:1px solid #334155;">每个项目各自维护</td>
-      <td style="padding:10px 12px;border-bottom:1px solid #334155;">MCP Server 跨项目复用</td>
+      <td>更换 AI 模型</td>
+      <td>需要重新适配各数据源</td>
+      <td>协议不变，模型透明切换</td>
     </tr>
-    <tr style="background:#1e293b;">
-      <td style="padding:10px 12px;">AI 编排方式</td>
-      <td style="padding:10px 12px;">提前把所有信息塞进 prompt</td>
-      <td style="padding:10px 12px;">AI 按需动态决定去哪里取什么</td>
+    <tr>
+      <td>能力复用</td>
+      <td>每个项目各自维护</td>
+      <td>MCP Server 跨项目复用</td>
+    </tr>
+    <tr>
+      <td>AI 编排方式</td>
+      <td>提前把所有信息塞进 prompt</td>
+      <td>AI 按需动态决定去哪里取什么</td>
     </tr>
   </tbody>
 </table>
@@ -148,7 +148,7 @@ readTime: 10
 
 <p>配置好之后，在每次对话中选择需要的 MCP 连接器，Agent 就能在任务执行过程中按需读写这些外部系统——无需手动上传文件，无需复制粘贴内容，直接操作。</p>
 
-<blockquote style="border-left:4px solid #6366f1;padding:12px 20px;margin:1.5rem 0;background:#1e1b4b22;border-radius:0 8px 8px 0;">
+<blockquote>
 <p>本文就是一个例子：AI 通过 GitHub MCP 连接器，读取了 kollab-handbook 仓库的结构和现有文章格式，直接把这篇文章写入了正确路径。整个过程没有手动上传任何文件。</p>
 </blockquote>
 
