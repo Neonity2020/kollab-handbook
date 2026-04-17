@@ -217,6 +217,13 @@ body {
   color: var(--accent);
 }
 
+/* ─── Blog table ─────────────────────────────────────────────────────── */
+/*
+ * Blog posts often use inline `style` attributes with hardcoded dark colors.
+ * Inline styles beat class-level selectors (specificity 1000 vs ~10),
+ * so !important is the only reliable way to enforce theme-aware variables
+ * across all existing and future posts without rewriting their HTML.
+ */
 .prose-blog table {
   width: 100%;
   border-collapse: separate;
@@ -225,45 +232,53 @@ body {
   font-size: 0.875rem;
   border-radius: 10px;
   overflow: hidden;
-  border: 1px solid var(--table-border);
+  border: 1px solid var(--table-border) !important;
   box-shadow: var(--table-shadow);
 }
-.prose-blog thead {
-  background: var(--table-head-bg);
+
+/* thead and the <tr> inside it may both carry inline background/color */
+.prose-blog thead,
+.prose-blog thead tr {
+  background: var(--table-head-bg) !important;
+  color: var(--table-head-text) !important;
 }
+
 .prose-blog th {
-  color: var(--table-head-text);
+  color: var(--table-head-text) !important;
+  background: transparent !important;
   font-weight: 600;
   text-align: left;
   padding: 0.7rem 1rem;
-  border-bottom: 2px solid var(--table-head-border);
-  border-right: 1px solid var(--table-border);
+  border-bottom: 2px solid var(--table-head-border) !important;
+  border-right: 1px solid var(--table-border) !important;
   font-size: 0.8rem;
   letter-spacing: 0.03em;
   text-transform: uppercase;
   white-space: nowrap;
 }
-.prose-blog th:last-child { border-right: none; }
-.prose-blog tbody tr:nth-child(odd)  { background: var(--table-row-odd); }
-.prose-blog tbody tr:nth-child(even) { background: var(--table-row-even); }
-.prose-blog tbody tr {
-  transition: background 0.12s ease;
-}
+.prose-blog th:last-child { border-right: none !important; }
+
+/* tbody rows — odd/even striping must beat any inline background */
+.prose-blog tbody tr:nth-child(odd)  { background: var(--table-row-odd)  !important; }
+.prose-blog tbody tr:nth-child(even) { background: var(--table-row-even) !important; }
+.prose-blog tbody tr { transition: background 0.12s ease; }
 .prose-blog tbody tr:hover { background: var(--table-row-hover) !important; }
+
 .prose-blog td {
-  color: var(--table-cell-text);
+  color: var(--table-cell-text) !important;
   padding: 0.65rem 1rem;
-  border-bottom: 1px solid var(--table-border);
-  border-right: 1px solid var(--table-border);
+  border-bottom: 1px solid var(--table-border) !important;
+  border-right: 1px solid var(--table-border) !important;
   line-height: 1.6;
   vertical-align: top;
 }
-.prose-blog td:last-child { border-right: none; }
-.prose-blog tbody tr:last-child td { border-bottom: none; }
+.prose-blog td:last-child { border-right: none !important; }
+.prose-blog tbody tr:last-child td { border-bottom: none !important; }
+
 /* First column acts as a row label — slightly heavier weight */
 .prose-blog tbody td:first-child {
   font-weight: 500;
-  color: var(--table-label-text);
+  color: var(--table-label-text) !important;
 }
 
 .prose-blog hr {
