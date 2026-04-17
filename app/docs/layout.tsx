@@ -18,21 +18,21 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-[#0f172a] pt-14">
+      <div className="min-h-screen bg-[var(--bg)] pt-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex gap-0">
           {/* Sidebar */}
           <aside className="hidden md:block w-56 shrink-0 pt-8 pr-6">
             <div className="sticky top-20">
               <Link
                 href="/docs/"
-                className="flex items-center gap-2 text-slate-400 hover:text-slate-700 dark:text-slate-200 transition-colors mb-6 text-sm"
+                className="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-[var(--text)] transition-colors mb-6 text-sm"
               >
                 <BookOpen className="w-4 h-4" />
                 文档首页
               </Link>
               {grouped.map(({ category, items }) => (
                 <div key={category} className="mb-5">
-                  <p className="text-[10px] uppercase tracking-widest text-slate-500 mb-2 px-1">
+                  <p className="text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2 px-1">
                     {category}
                   </p>
                   <nav className="space-y-0.5">
@@ -44,8 +44,8 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
                           href={`/docs/${s.slug}/`}
                           className={`flex items-center gap-2 px-2.5 py-1.5 rounded-md text-sm transition-all ${
                             active
-                              ? "bg-blue-500/15 text-blue-300 font-medium"
-                              : "text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-white/5"
+                              ? "bg-blue-500/15 text-blue-600 dark:text-blue-300 font-medium"
+                              : "text-slate-600 dark:text-slate-400 hover:text-[var(--text)] hover:bg-black/5 dark:hover:bg-white/5"
                           }`}
                         >
                           <span className="text-base leading-none">{s.icon}</span>
