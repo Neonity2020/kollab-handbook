@@ -33,9 +33,9 @@ export default function BlogIndex() {
               >
                 <div className="flex items-center gap-3 mb-3">
                   <time className="text-xs text-slate-400">{post.date}</time>
-                  <span className="text-slate-300 dark:text-slate-500">·</span>
+                  <span className="text-slate-400 dark:text-slate-600">·</span>
                   <span className="text-xs text-slate-400">约 {post.readTime} 分钟阅读</span>
-                  <span className="text-slate-300 dark:text-slate-500">·</span>
+                  <span className="text-slate-400 dark:text-slate-600">·</span>
                   <span className="text-xs text-slate-400">{post.author}</span>
                 </div>
                 <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 group-hover:text-blue-500 dark:group-hover:text-blue-300 transition-colors mb-2 leading-snug">
